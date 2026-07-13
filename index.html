@@ -10,8 +10,6 @@
 <style>
   :root{
     --ink:#20302e;--paper:#eef0ea;--paper-2:#e5e8df;--card:#f7f8f3;
-
-
     --brand:#2f5d50;--brand-strong:#254a3f;--accent:#c8542b;
     --correct:#2c7a5b;--correct-bg:#e2efe7;--wrong:#b23b2e;--wrong-bg:#f3e2df;
     --muted:#6f7a72;--line:rgba(32,48,46,.14);--line-strong:rgba(32,48,46,.28);
@@ -274,18 +272,15 @@
    下の null を消して { ... } ごと貼り付けてください。
    null のままなら、この端末だけに保存するローカルモードで動きます。
    ===================================================== */
-const FIREBASE_CONFIG = apiKey: "AIzaSyCNTf0LcHfBsKPRicgHWvLOQpujDlQPjPQ",
-
+const FIREBASE_CONFIG =  {
+  apiKey: "AIzaSyCNTf0LcHfBsKPRicgHWvLOQpujDlQPjPQ",
   authDomain: "chosashi-app-e7686.firebaseapp.com",
-
   projectId: "chosashi-app-e7686",
-
   storageBucket: "chosashi-app-e7686.firebasestorage.app",
-
   messagingSenderId: "194079412141",
+  appId: "1:194079412141:web:a019ebf7be66fb49371b24"
+};
 
-  appId: "1:194079412141:web:a019ebf7be66fb49371b24" 
-;
 /* 貼り付け例：
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXX",
