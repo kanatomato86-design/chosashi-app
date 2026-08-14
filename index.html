@@ -9,40 +9,43 @@
 <title>土地家屋調査士 択一演習</title>
 <style>
   :root{
-    --ink:#20302e;--paper:#eef0ea;--paper-2:#e5e8df;--card:#f7f8f3;
-    --brand:#2f5d50;--brand-strong:#254a3f;--accent:#c8542b;
-    --correct:#2c7a5b;--correct-bg:#e2efe7;--wrong:#b23b2e;--wrong-bg:#f3e2df;
-    --muted:#6f7a72;--line:rgba(32,48,46,.14);--line-strong:rgba(32,48,46,.28);
-    --m1:#b23b2e;--m2:#cf6a34;--m3:#be9a2e;--m4:#4f8a5f;--m5:#2c7a5b;
-    --radius:14px;
-    --mincho:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
+    --ink:#3a4a34;--paper:#fbf7ea;--paper-2:#f0ecd8;--card:#fffdf5;
+    --brand:#556b2f;--brand-strong:#355e3b;--brand-soft:#e7eed8;
+    --pink:#b76e79;--pink-soft:#f6e6e6;--accent:#ffb347;
+    --lime:#a2d729;--sage:#a9ba97;
+    --correct:#4e8b48;--correct-bg:#e6f2df;--wrong:#c05f52;--wrong-bg:#f8e8e3;
+    --muted:#7d8a72;--line:rgba(58,74,52,.14);--line-strong:rgba(58,74,52,.24);
+    --m1:#c05f52;--m2:#e08a45;--m3:#ffbf00;--m4:#7ba86a;--m5:#4e8b48;
+    --radius:20px;
+    --mincho:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",Meiryo,sans-serif;
     --gothic:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",Meiryo,sans-serif;
     --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --shadow:0 4px 16px rgba(58,74,52,.09);
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
   body{font-family:var(--gothic);color:var(--ink);background-color:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
   .wrap{max-width:520px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom));}
   .topbar{padding:calc(14px + env(safe-area-inset-top)) 16px 12px;max-width:520px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line-strong);}
-  .brand-title{font-family:var(--mincho);font-size:20px;font-weight:600;letter-spacing:.04em;margin:0;}
+  .brand-title{font-family:var(--gothic);font-size:20px;font-weight:800;letter-spacing:.02em;margin:0;color:var(--brand-strong);}
   .brand-sub{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:2px;}
   .coord{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;text-align:right;line-height:1.5;}
   .view{animation:fade .28s ease;}
   @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
   @media(prefers-reduced-motion:reduce){.view{animation:none;}*{transition:none!important;animation:none!important;}}
-  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);margin:26px 0 10px;display:flex;align-items:center;gap:8px;}
+  .eyebrow{font-family:var(--gothic);font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--brand);margin:26px 0 10px;display:flex;align-items:center;gap:8px;}
   .eyebrow::after{content:"";flex:1;height:1px;background:var(--line-strong);}
-  .yacho{position:relative;background:var(--brand);color:#f2f5ef;border-radius:var(--radius);padding:18px 18px 16px;margin-top:14px;overflow:hidden;box-shadow:0 6px 22px rgba(37,74,63,.22);}
+  .yacho{position:relative;background:linear-gradient(135deg,var(--brand-strong),#6f8a3f);color:#f2f5ef;border-radius:var(--radius);padding:18px 18px 16px;margin-top:14px;overflow:hidden;box-shadow:0 6px 22px rgba(37,74,63,.22);}
   .yacho-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;opacity:.8;text-transform:uppercase;}
   .yacho-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px;}
   .stat .num{font-family:var(--mono);font-size:27px;font-weight:600;line-height:1;}
   .stat .cap{font-size:11px;opacity:.82;margin-top:5px;}
   .yacho-foot{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.22);font-size:12px;display:flex;justify-content:space-between;opacity:.9;}
   .stack{display:flex;flex-direction:column;gap:10px;margin-top:16px;}
-  .btn{font-family:var(--gothic);font-size:15px;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);padding:15px 16px;text-align:left;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;transition:transform .08s,border-color .15s;}
-  .btn:active{transform:scale(.985);}
+  .btn{font-family:var(--gothic);font-size:15px;font-weight:700;box-shadow:var(--shadow);color:var(--ink);background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);padding:15px 16px;text-align:left;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;transition:transform .08s,border-color .15s;}
+  .btn:active{transform:scale(.96);}
   .btn .arw{font-family:var(--mono);color:var(--muted);font-size:15px;}
-  .btn.primary{background:var(--brand);color:#f2f5ef;border-color:var(--brand-strong);}
+  .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand-strong);}
   .btn.primary .arw{color:rgba(255,255,255,.8);}
   .btn.ghost{background:transparent;}
   .btn.small{font-size:13px;padding:11px 13px;}
@@ -51,16 +54,17 @@
   .btn-sub{font-size:11.5px;font-weight:400;color:var(--muted);margin-top:2px;}
   .btn-main{display:flex;flex-direction:column;}
   .row{display:flex;gap:8px;}.row>*{flex:1;}
-  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-top:14px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-top:14px;box-shadow:var(--shadow);}
   .seg{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
-  .chip{font-family:var(--gothic);font-size:13px;padding:8px 13px;border-radius:999px;border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;transition:all .12s;}
-  .chip.on{background:var(--brand);color:#f2f5ef;border-color:var(--brand);}
+  .chip{font-family:var(--gothic);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;border:1.5px solid var(--line-strong);background:#fff;color:var(--ink);cursor:pointer;transition:all .12s;}
+  .chip:active{transform:scale(.94);}
+  .chip.on{background:var(--brand);color:#fff;border-color:var(--brand);}
   .chip.sm{font-size:12px;padding:6px 11px;}
   .field-label{font-size:12px;color:var(--muted);font-family:var(--mono);letter-spacing:.08em;margin:16px 0 2px;text-transform:uppercase;}
   .field-label:first-child{margin-top:4px;}
   .qmeta{display:flex;justify-content:space-between;align-items:center;margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;gap:8px;}
   .tagline{display:flex;gap:6px;flex-wrap:wrap;}
-  .qcat{background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--brand-strong);font-weight:600;}
+  .qcat{background:var(--brand-soft);border:1px solid transparent;border-radius:999px;padding:3px 11px;color:var(--brand-strong);font-weight:700;}
   .qyear{background:transparent;border:1px solid var(--line-strong);border-radius:999px;padding:3px 10px;color:var(--muted);}
   .prog{height:4px;background:var(--paper-2);border-radius:4px;margin-top:8px;overflow:hidden;}
   .prog>span{display:block;height:100%;background:var(--brand);transition:width .3s;}
@@ -72,8 +76,8 @@
   .branchline .mkr{flex:0 0 auto;font-family:var(--mono);font-weight:800;margin-top:2px;}
   .branchline .mkr.o{color:var(--correct);}.branchline .mkr.x{color:var(--wrong);}
   .ox-choices{display:flex;gap:10px;margin-top:18px;}
-  .oxbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:20px 0;border-radius:14px;border:1.5px solid var(--line-strong);background:var(--card);cursor:pointer;font-family:var(--gothic);transition:transform .07s,border-color .15s,background .15s;}
-  .oxbtn:active{transform:scale(.98);}
+  .oxbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:22px 0;border-radius:18px;border:2px solid var(--line-strong);background:var(--card);cursor:pointer;font-family:var(--gothic);font-weight:700;box-shadow:var(--shadow);transition:transform .07s,border-color .15s,background .15s;}
+  .oxbtn:active{transform:scale(.94);}
   .oxbtn .mk{font-size:30px;line-height:1;font-family:var(--mono);}
   .oxbtn .tx{font-size:12px;color:var(--muted);}
   .oxbtn.o .mk{color:var(--correct);}
@@ -82,7 +86,7 @@
   .oxbtn.reveal{border-color:var(--correct);background:var(--correct-bg);}
   .oxbtn.dim{opacity:.5;}
   .choices{display:flex;flex-direction:column;gap:9px;margin-top:14px;}
-  .choice{display:flex;gap:11px;align-items:flex-start;text-align:left;width:100%;background:var(--card);border:1px solid var(--line-strong);border-radius:12px;padding:13px 14px;font-family:var(--gothic);font-size:14.5px;color:var(--ink);cursor:pointer;transition:transform .07s,border-color .15s;}
+  .choice{display:flex;gap:11px;align-items:flex-start;text-align:left;width:100%;background:var(--card);border:1.5px solid var(--line-strong);border-radius:16px;box-shadow:var(--shadow);padding:13px 14px;font-family:var(--gothic);font-size:14.5px;color:var(--ink);cursor:pointer;transition:transform .07s,border-color .15s;}
   .choice .no{font-family:var(--mono);font-weight:600;color:var(--brand);min-width:20px;}
   .choice.correct{background:var(--correct-bg);border-color:var(--correct);}.choice.correct .no{color:var(--correct);}
   .choice.wrong{background:var(--wrong-bg);border-color:var(--wrong);}.choice.wrong .no{color:var(--wrong);}
@@ -90,7 +94,7 @@
   .verdict{margin-top:16px;border-radius:12px;padding:13px 14px;font-size:14px;border:1px solid;}
   .verdict.ok{background:var(--correct-bg);border-color:var(--correct);color:var(--correct);}
   .verdict.ng{background:var(--wrong-bg);border-color:var(--wrong);color:var(--wrong);}
-  .verdict b{font-family:var(--mincho);font-size:15px;}
+  .verdict b{font-weight:800;font-size:15px;}
   .expl{margin-top:12px;background:var(--paper-2);border-radius:12px;padding:13px 14px;font-size:13.5px;line-height:1.7;white-space:pre-wrap;}
   .expl .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:5px;}
   .mrate{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 13px;}
@@ -107,12 +111,13 @@
   .mbadge.none{color:var(--muted);}
   .mbadge.lv1{color:var(--m1);border-color:var(--m1);}.mbadge.lv2{color:var(--m2);border-color:var(--m2);}
   .mbadge.lv3{color:var(--m3);border-color:var(--m3);}.mbadge.lv4{color:var(--m4);border-color:var(--m4);}.mbadge.lv5{color:var(--m5);border-color:var(--m5);}
-  .score-big{font-family:var(--mono);font-size:54px;font-weight:600;text-align:center;margin:6px 0 0;color:var(--brand);}
+  .score-big{font-family:var(--gothic);font-size:56px;font-weight:800;text-align:center;margin:6px 0 0;color:var(--brand-strong);}
   .score-cap{text-align:center;color:var(--muted);font-size:13px;}
-  .qitem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin-top:9px;cursor:pointer;transition:border-color .15s;}
+  .qitem{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--brand);border-radius:16px;padding:12px 13px;margin-top:10px;cursor:pointer;transition:transform .1s,box-shadow .15s;box-shadow:var(--shadow);}
+  .qitem:active{transform:scale(.99);}
   .qitem:active{border-color:var(--brand);}
   .qitem .top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap;}
-  .qitem .cat{font-size:11px;font-weight:600;color:var(--brand-strong);background:var(--paper-2);border-radius:999px;padding:2px 9px;}
+  .qitem .cat{font-size:11px;font-weight:700;color:var(--brand-strong);background:var(--brand-soft);border-radius:999px;padding:2px 10px;}
   .qitem .yr{font-family:var(--mono);font-size:10.5px;color:var(--muted);}
   .qitem .body{font-size:13.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   input[type=text],textarea,select{width:100%;font-family:var(--gothic);font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--line-strong);border-radius:10px;padding:11px 12px;margin-top:5px;}
@@ -137,15 +142,31 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px);}
   .modal-back{position:fixed;inset:0;background:rgba(20,30,28,.45);display:flex;align-items:center;justify-content:center;padding:22px;z-index:100;animation:fade .18s ease;}
   .modal{background:var(--card);border-radius:16px;padding:20px;max-width:340px;width:100%;box-shadow:0 12px 40px rgba(20,30,28,.3);}
-  .modal .mt{font-family:var(--mincho);font-size:17px;font-weight:600;}
+  .modal .mt{font-family:var(--gothic);font-size:17px;font-weight:800;}
   .modal .mb{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7;}
   .modal input[type=text]{margin-top:12px;}
   .modal .ma{display:flex;gap:8px;margin-top:18px;}
   .mbtn{flex:1;font-family:var(--gothic);font-size:14px;font-weight:600;padding:12px 0;border-radius:11px;border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;}
-  .mbtn.pr{background:var(--brand);border-color:var(--brand-strong);color:#f2f5ef;}
+  .mbtn.pr{background:var(--brand);border-color:var(--brand-strong);color:#fff;}
   .mbtn.dg{background:var(--wrong);border-color:var(--wrong);color:#fff;}
   .rowlabel{font-size:11px;color:var(--muted);font-family:var(--mono);margin:14px 0 0;letter-spacing:.06em;text-transform:uppercase;}
   .quizbar{display:flex;gap:6px;padding-top:12px;}
+
+  .chip:disabled{opacity:.4;cursor:default;}
+  .branchline .tx{white-space:pre-wrap;}
+  .expl-b{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);}
+  .expl-b:first-of-type{margin-top:8px;}
+  .expl-bh{display:flex;gap:7px;align-items:flex-start;font-weight:600;}
+  .expl-bl{font-family:var(--mono);color:var(--brand-strong);flex:0 0 auto;}
+  .expl-bt{white-space:pre-wrap;font-weight:400;}
+  .expl-be{margin-top:6px;white-space:pre-wrap;color:var(--ink);padding-left:2px;}
+  .emk{font-family:var(--mono);font-weight:800;flex:0 0 auto;}
+  .emk.o{color:var(--correct);}.emk.x{color:var(--wrong);}
+
+  .ybadge{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:700;font-size:10.5px;}
+  .qi-act{margin-top:10px;}
+  .solvebtn{font-family:var(--gothic);font-size:12.5px;font-weight:700;color:#fff;background:var(--accent);border:none;border-radius:999px;padding:8px 16px;cursor:pointer;}
+  .solvebtn:active{transform:scale(.97);}
   .recbar{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .recbar .rl{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
   .recbar .rv{font-size:13px;margin-left:auto;}
@@ -164,8 +185,8 @@
   .qbtn{flex:1;font-family:var(--gothic);font-size:11.5px;font-weight:600;color:var(--muted);background:transparent;border:1px solid var(--line-strong);border-radius:9px;padding:8px 4px;cursor:pointer;}
   .qbtn.danger{color:var(--wrong);border-color:rgba(178,59,46,.35);flex:0 0 66px;}
   .bigwrap{display:flex;gap:10px;margin-top:14px;}
-  .bigcard{flex:1;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px;text-align:center;}
-  .bigcard .p{font-family:var(--mono);font-size:34px;font-weight:600;color:var(--brand);line-height:1;}
+  .bigcard{flex:1;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px;text-align:center;box-shadow:var(--shadow);}
+  .bigcard .p{font-family:var(--gothic);font-size:34px;font-weight:800;color:var(--brand-strong);line-height:1;}
   .bigcard .l{font-size:11px;color:var(--muted);margin-top:6px;}
   .bigcard .s{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:3px;}
   .mrow{margin-top:13px;}
@@ -175,7 +196,7 @@
   .bar>span{display:block;height:100%;border-radius:6px;background:var(--brand);}
   .mrow .sub{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:3px;}
   .cal-head{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
-  .cal-head .mo{font-family:var(--mincho);font-size:17px;font-weight:600;}
+  .cal-head .mo{font-family:var(--gothic);font-size:17px;font-weight:800;}
   .cal-nav{background:var(--card);border:1px solid var(--line-strong);border-radius:10px;width:40px;height:36px;font-size:16px;color:var(--ink);cursor:pointer;}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px;}
   .cal-dow{text-align:center;font-size:10px;color:var(--muted);font-family:var(--mono);padding:2px 0;}
@@ -184,12 +205,25 @@
   .cal-cell .d{font-family:var(--mono);font-size:9.5px;color:var(--muted);}
   .cal-cell .c{font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;}
   .cal-cell.today{outline:2px solid var(--brand);outline-offset:-2px;}
+  .exbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px;margin-top:12px;box-shadow:var(--shadow);}
+  .exrow{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line);}
+  .exrow:last-of-type{border-bottom:none;}
+  .exrow.none{color:var(--muted);font-size:12px;justify-content:center;border:none;}
+  .exrow.past{opacity:.45;}
+  .exflag{color:var(--accent);font-size:14px;}
+  .exd{font-weight:800;color:var(--brand-strong);white-space:nowrap;}
+  .exl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .exdel{background:transparent;border:none;color:var(--muted);font-size:17px;cursor:pointer;padding:0 4px;}
+  .exadd{width:100%;margin-top:8px;background:var(--brand-soft);border:none;border-radius:10px;color:var(--brand-strong);font-family:var(--gothic);font-weight:700;font-size:12.5px;padding:9px 0;cursor:pointer;}
+  .cal-cell.exam{outline:2px solid var(--accent);outline-offset:-2px;}
+  .cal-cell .flag{font-size:12px;color:#fff;}
+
   /* rabbit */
-  .rabbit{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-top:18px;}
+  .rabbit{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-top:18px;box-shadow:var(--shadow);}
   .rabbit .top{display:flex;gap:12px;align-items:center;}
   .rabbit .scene{flex:0 0 auto;display:flex;align-items:flex-end;}
   .rabbit .info{flex:1;min-width:0;}
-  .rabbit .nm{font-family:var(--mincho);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
+  .rabbit .nm{font-family:var(--gothic);font-weight:800;font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
   .rabbit .nm .pen{font-size:11px;color:var(--muted);}
   .rabbit .stg{font-family:var(--mono);font-size:10.5px;color:var(--brand);letter-spacing:.06em;margin-top:2px;}
   .rabbit .msg{font-size:13px;line-height:1.6;margin-top:7px;}
@@ -199,9 +233,23 @@
   .rabbit .comps{display:flex;align-items:flex-end;gap:0;margin-top:6px;padding-left:6px;}
   .rabbit .comps>div{margin-right:-8px;}
   .rabbit .compcap{font-size:10.5px;color:var(--muted);margin-top:2px;padding-left:8px;}
+
+  .bubble{position:absolute;left:50%;top:8px;transform:translateX(-50%) translateY(-6px);background:#fffdf5;border:2.4px solid #a89a86;border-radius:16px;padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--ink);white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:4;}
+  .bubble.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .bubble::after{content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:9px solid #a89a86;}
+  .roomtab{display:flex;gap:6px;margin-bottom:8px;}
+  .rtab{flex:1;font-family:var(--gothic);font-size:12px;font-weight:700;padding:8px 0;border-radius:12px;border:1.5px solid var(--line-strong);background:#fff;color:var(--muted);cursor:pointer;}
+  .rtab.on{background:var(--brand);border-color:var(--brand);color:#fff;}
+  .norabbit{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);opacity:.95;}
+  .stage .comps{position:absolute;right:6px;bottom:6px;display:flex;align-items:flex-end;}
+  .stage .comps>div{margin-left:-10px;}
+  .scenechip{flex:0 0 auto;font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line-strong);background:#fff;color:var(--ink);cursor:pointer;white-space:nowrap;}
+  .scenechip.on{background:var(--brand);color:#fff;border-color:var(--brand);}
+  .actbtn{flex:1;font-family:var(--gothic);font-size:12px;font-weight:700;color:var(--brand-strong);background:var(--brand-soft);border:none;border-radius:12px;padding:9px 4px;cursor:pointer;}
+  .actbtn:active{transform:scale(.94);}
   .levelup{background:var(--correct-bg);border:1px solid var(--correct);border-radius:12px;padding:12px 14px;margin-top:14px;display:flex;gap:10px;align-items:center;}
   .levelup .t{font-size:13.5px;color:var(--brand-strong);line-height:1.6;}
-  .levelup .t b{font-family:var(--mincho);}
+  .levelup .t b{font-weight:800;}
   .rb .rb-body{animation:rbBreathe 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%;}
   .rb .rb-ear1{animation:rbEar 7s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 95%;}
   .rb .rb-ear2{animation:rbEar 8.5s ease-in-out infinite 2.2s;transform-box:fill-box;transform-origin:50% 95%;}
@@ -212,9 +260,9 @@
   @keyframes rbBlink{0%,93.5%,97%,100%{opacity:0}94.5%,96%{opacity:1}}
   @keyframes rbTilt{0%,80%,100%{transform:rotate(0)}86%{transform:rotate(2.2deg)}92%{transform:rotate(0)}}
   /* 舞台 */
-  .stage{position:relative;border-radius:14px;overflow:hidden;height:170px;flex:0 0 auto;width:100%;cursor:pointer;}
+  .stage{position:relative;border-radius:16px;overflow:hidden;height:190px;flex:0 0 auto;width:100%;cursor:pointer;}
   .stage .scenebg{position:absolute;inset:0;width:100%;height:100%;}
-  .stage .rb{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);}
+  .stage .rb{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);}
   .stage .carrot{position:absolute;left:calc(50% - 52px);bottom:16px;display:none;}
   .stage .tapcue{position:absolute;right:8px;bottom:6px;font-size:9.5px;color:rgba(32,48,46,.45);font-family:var(--mono);}
   .stage .comps{position:absolute;right:10px;bottom:8px;display:flex;align-items:flex-end;}
@@ -272,15 +320,558 @@
    下の null を消して { ... } ごと貼り付けてください。
    null のままなら、この端末だけに保存するローカルモードで動きます。
    ===================================================== */
-const FIREBASE_CONFIG =  {
-  apiKey: "AIzaSyCNTf0LcHfBsKPRicgHWvLOQpujDlQPjPQ",
-  authDomain: "chosashi-app-e7686.firebaseapp.com",
-  projectId: "chosashi-app-e7686",
-  storageBucket: "chosashi-app-e7686.firebasestorage.app",
-  messagingSenderId: "194079412141",
-  appId: "1:194079412141:web:a019ebf7be66fb49371b24"
-};
-
+const FIREBASE_CONFIG = [
+  {
+    "branches": [
+      {
+        "text": "Dが甲建物を権原なく占有している場合には、Aは、Dに対し、単独で甲建物の明渡しを請求することができる。",
+        "mastery": 0,
+        "label": "ア",
+        "expl": "専有を第三者に奪われた場合の共有物の引渡しもしくは明け渡し請求は保存行為（252条ただし書)であるため、各共有者が単独で、その全部の引渡しを請求することができる。(大判大7.4.19)",
+        "truth": true
+      },
+      {
+        "mastery": 0,
+        "expl": "共有持ち分の価格が過半数を超えるものであっても、共有者の一人が排他的に使用している場合、当然の明け渡し請求は認められない。(最判昭41.5.19)",
+        "truth": false,
+        "text": "AがB及びCの了解を得ることなく単独で甲建物を占有している場合には、B及びCは、Aに対し、直ちに甲建物の明渡しを請求することができる。",
+        "label": "イ"
+      },
+      {
+        "expl": "共有地の賃貸借契約の解除は管理行為であるため、持ち分の価格の過半数で決する。",
+        "truth": false,
+        "mastery": 0,
+        "text": "A、B及びCがEに対して甲建物を賃貸した場合において、Eが賃料を長期にわたって支払わないときは、Aは、単独でEとの賃貸借契約を解除することができる。",
+        "label": "ウ"
+      },
+      {
+        "mastery": 0,
+        "expl": "持ち分権は、各共有者が自由に処分することができる。",
+        "truth": true,
+        "text": "Aは、Fに対する債務を担保するため、甲建物の自己の持分について抵当権を設定することができる。",
+        "label": "エ"
+      },
+      {
+        "mastery": 0,
+        "truth": false,
+        "label": "オ",
+        "expl": "共有者の一人が共有者間の協議に基づかないで共有地を第三者に使用させている場合であっても、第三者の占有使用が、共有者の一人の持ち分に基づくものと認められる限りは、当該第三者に対して当然には明け渡しを請求することはできない。",
+        "text": "AがB及びCの了解を得ることなくGに対して甲建物を賃貸している場合には、B及びCは、Gに対し、直ちに甲建物の明渡しを請求することができる。"
+      }
+    ],
+    "stem": "A,B及びCが甲建物の持分を３分の１ずつ共有している場合に関する次のアからオまでの記述のうち、判例の趣旨に照らし正しいものの組合わせは、後記１から５までのうちどれか。",
+    "updatedAt": 1786609750109,
+    "mastery": 1,
+    "type": "set",
+    "createdAt": 1786608127147,
+    "year": "平成17年",
+    "comboCorrect": 1,
+    "combos": [
+      "アイ",
+      "アエ",
+      "イウ",
+      "ウオ",
+      "エオ"
+    ],
+    "category": "物権",
+    "qnum": "問題１"
+  },
+  {
+    "qnum": "問題２",
+    "branches": [
+      {
+        "expl": "心裡留保では、相手方の意思表示が表意者の真意でないことを知り、または知ることができたときは、そのような相手方を保護する必要がないので、無効となる。(意志主義/93条1項但し書)",
+        "truth": true,
+        "label": "1",
+        "text": "AB間でAがBに土地を売り渡す契約を締結したが、Aが真意では売り渡すつもりがなかった場合において、BがAの真意を知っていたときは、当該契約は、無効である。",
+        "mastery": 0
+      },
+      {
+        "expl": "通謀虚偽表示の無効は、これを虚偽表示後に登場した善意の第三者に対抗することができない。(94条2項)",
+        "label": "2",
+        "mastery": 0,
+        "truth": true,
+        "text": "AB間でAがBに土地を売り渡す契約を締結したが、当該契約がAとBとが通謀して行った虚偽のものであった場合において、Cが当該契約の有効性を過失なく信じてBから当該土地を買い受けたときは、Aは、Cに対し、当該契約が無効であることを主張することができない。"
+      },
+      {
+        "text": "AB間でAがBに土地を売り渡す契約を締結したが、Aの意思表示について法律行為の要素に錯誤があった場合において、Aに重大な過失があったときは、Aはその意思表示の取消を主張することができない。",
+        "label": "3",
+        "truth": true,
+        "expl": "要素の錯誤があっても、表意者に重過失がある場合には、表意者は取り消しの主張をすることができない。軽率な表意者を保護委しないためである。",
+        "mastery": 0
+      },
+      {
+        "label": "4",
+        "expl": "被欺罔者は意思表示を取り消すことができる。",
+        "truth": true,
+        "mastery": 0,
+        "text": "AB間でAがBに土地を売り渡す契約を締結したが、Aの意思表示がBの詐欺によるものであった場合には、Aは、当該意思表示を取り消すことができる。"
+      },
+      {
+        "mastery": 0,
+        "expl": "強迫による意思表示の取消は、詐欺の場合と異なり第三者保護規定がないので、取消前の善意の第三者にも対抗することができる。なぜなら脅迫された表意者を保護する要請が強いからである。",
+        "text": "AB間でAがBに土地を売り渡す契約を締結したが、Aの意思表示がBの強迫によるものであった場合において、Cが、Bから当該土地を買い受け、かつ、強迫の事実について善意であるときは、Aは、Cが買い受けた後、Bに対する意思表示を取り消しても、当該取消しをCに対抗することができない",
+        "truth": false,
+        "label": "5"
+      }
+    ],
+    "year": "平成17年",
+    "combos": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "category": "総則",
+    "comboCorrect": 4,
+    "mastery": 1,
+    "stem": "意思表示に関する次の１から５までの記述のうち、誤っているものはどれか。",
+    "updatedAt": 1786662663965,
+    "type": "set",
+    "createdAt": 1786608610724
+  },
+  {
+    "stem": "次の対話は、甲建物の賃借人をA、所有者兼賃貸人をBとした場合の甲建物等の所有権の取得に関する教授と学生との対話である。教授の質問に対する次のアからオまでの学生の解答のうち、判例の趣旨に照らし正しいものの組合せは、後記１から５までのうちどれか。",
+    "mastery": 2,
+    "comboCorrect": 3,
+    "category": "総則",
+    "type": "set",
+    "branches": [
+      {
+        "expl": "賃貸借が終了すれば、賃借人は賃借物を返還しなければならない。その際、目的物に付属させたものを収去する権利と共に義務を負う。",
+        "truth": false,
+        "label": "ア",
+        "text": "教授；　AがBの同意を得ないで甲建物の一室にエアコンを設置した場合には、エアコンの所有権の帰属はどうなりますか。\n \n学生；ア　AがBの同意を得ていないので、Bが所有権を取得します。",
+        "mastery": 0
+      },
+      {
+        "text": "教授；　では、AがBの同意を得ないで甲建物に改装をした結果、改装前に1,000万円であった甲建物の価値が改装後に3,000万円となった場合には、甲建物の所有権の帰属は、どうなりますか。\n学生；イ　AがBの同意を得ていなくても、改装によって甲建物の価値が倍以上に増加していますから、甲建物の所有権は、Aに帰属します。",
+        "truth": false,
+        "label": "イ",
+        "expl": "加工の規定は、他人の動産を加工して別種のものを製作した場合である。",
+        "mastery": 0
+      },
+      {
+        "label": "ウ",
+        "truth": true,
+        "text": "教授；　AがBの同意を得てAが提供した材料を用いて出窓を増築した場合において、AB間に所有権の取得について特約がないときは、出窓の所有権の帰属は、どうなりますか。\n\n学生；ウ　出窓には独立性が認められないので、AがBの同意を得ていても、出窓の所有権は、Bに帰属します。",
+        "mastery": 0,
+        "expl": "不動産に対する動産の付合では、強い付合の場合（不動産の構成部分となり、社会経済上の独立性を失った場合）には、所有権を留保することができない。"
+      },
+      {
+        "mastery": 0,
+        "text": "教授；　AがBの同意を得て、平屋の甲建物の２階として、独立した玄関口があり、かつ、１階とは内部で通じていない居宅を増築した場合において、AB間に所有権の取得について特約がないときは、甲建物の２階部分の所有権の帰属は、どうなりますか。\n\n学生；エ　甲建物の２階部分が独立性を有し、区分所有権の対象となる場合には、Aがその所有権を取得します。\n\n \n\n教授；　ところで、Aが増築した部分の所有権をBが取得することとなる場合に、Aは、Bに対し、金銭の支払いを請求することができますか。",
+        "truth": true,
+        "expl": "建物賃借人が、賃借建物の上に新たな建物を自己費用で増築した場合、当該部分が独立性を有し、区分所有権の対象となれば、特約のない限り、その増築部分の所有権は建物の賃借人に帰属する。",
+        "label": "エ"
+      },
+      {
+        "text": "教授；　ところで、Aが増築した部分の所有権をBが取得することとなる場合に、Aは、Bに対し、金銭の支払いを請求することができますか。\n\n学生；オ　その場合であっても、Aは、当該部分を継続して使用することができますので、Bに対して金銭の支払いを請求することはできません。",
+        "mastery": 0,
+        "label": "オ",
+        "truth": false,
+        "expl": "付合、混和または加工の規定の適用によって損失を受けたものは、不当利得の規定に従い、その償金を請求することができる。"
+      }
+    ],
+    "updatedAt": 1786662849351,
+    "combos": [
+      "アイ",
+      "アオ",
+      "イウ",
+      "ウエ",
+      "エオ"
+    ],
+    "qnum": "問題３",
+    "createdAt": 1786609559065,
+    "year": "平成17年"
+  },
+  {
+    "year": "平成17年",
+    "category": "建物",
+    "qnum": "問題４",
+    "branches": [
+      {
+        "label": "ア",
+        "truth": true,
+        "text": "地下にある地下鉄の駅の事務室部分は、床面積に算入するが、当該駅の通路やホームの部分は、床面積に算入しない。",
+        "mastery": 0,
+        "expl": "地下停車場、地下駐車場および地下街の建物の床面積は、壁または柱などにより区画された部分の面積により定める。ただし、常時一般に開放されている通路および階段の部分や、停車場の地下道設備（地下駐車場のものをふくむ）は床面積に算入されない。よって、地下鉄の駅については、壁または柱などにより区画された事務室部分については床面積に算入されるが、常時一般に開放されている通路やホームの部分は床面積に算入しない。"
+      },
+      {
+        "text": "主に野球場として利用される建物であって、野球の試合等の開催時には屋根を開き、雨天時やイベントの種類によっては屋根を閉じる開閉式屋根を有するものについては、開閉式屋根の開閉可能な部分の下に当たる部分は、床面積に算入しない。",
+        "truth": false,
+        "expl": "野球場、競馬場またはこれらに類する施設の観覧席は、屋根の設備のある部分の面積を床面積として算出する。開閉式屋根を有する建物の床面積については、開閉可能部分の屋根の下に当たる部分も含めて、全体を床面積として参入する。",
+        "label": "イ",
+        "mastery": 0
+      },
+      {
+        "mastery": 0,
+        "expl": "階段室、エレベーターまたはこれに準ずるものは、床を有するものとして各階の床面積に算入される。",
+        "label": "ウ",
+        "text": "階段室やエレベーター室は、各階の床面積に算入しない。",
+        "truth": false
+      },
+      {
+        "text": "１室の一部が天井の高さ1.5メートル未満であっても、その部分は、当該１室の床面積に算入する。",
+        "mastery": 0,
+        "truth": true,
+        "expl": "天井の高さ1.5m未満の地階および屋階など（特殊階）は、床面積に算入しない。ただし、一室の一部が天井の高さ1.5m未満であっても、その部分は全体が床面積に算入される。",
+        "label": "エ"
+      },
+      {
+        "text": "建物の一部が上階まで吹抜になっている場合には、その吹抜の部分は、上階の床面積に算入しない。",
+        "truth": true,
+        "mastery": 0,
+        "expl": "建物の一部が上階まで吹抜になっている場合には、その吹抜の部分は、上階の床面積に算入しない。",
+        "label": "オ"
+      }
+    ],
+    "mastery": 2,
+    "type": "set",
+    "comboCorrect": 2,
+    "createdAt": 1786611188822,
+    "stem": "建物の床面積に関する次のアからオまでの記述のうち、誤っているものの組合せは、後記１から５までのうちどれか。",
+    "combos": [
+      "アイ",
+      "アエ",
+      "イウ",
+      "ウオ",
+      "エオ"
+    ],
+    "updatedAt": 1786653966866
+  },
+  {
+    "createdAt": 1786612043390,
+    "type": "set",
+    "updatedAt": 1786664134024,
+    "stem": "土地又は建物の表題登記に関する次のアからオまでの記述のうち、正しいものの組合せは、後記１から５までのうちどれか。",
+    "mastery": 1,
+    "qnum": "問題５",
+    "category": "土地",
+    "year": "平成17年",
+    "branches": [
+      {
+        "text": "土地の表題登記の申請をする場合には、表題部所有者となる者が所有権を有することを証する情報を提供しなければならないこととされているので、登記官の実地調査権は、所有者の認定には及ばない。",
+        "label": "ア",
+        "truth": false,
+        "mastery": 0,
+        "expl": "表示に関する登記では、登記官に実地調査権が与えられている。実地調査とは、申請があった場合または職権で登記をする際に、必要に応じて行われるもので、実地調査の結果が申請情報と異なるようであれば、登記官は申請を却下することになる。土地の表題登記においては表題部所有者に関する事項が申請情報となるため、実地調査権は所有者の認定に及ぶ。"
+      },
+      {
+        "expl": "公有水面埋立法により、埋立に関する免許を都道府県知事から受けたものは、竣工認可の告示によって、埋め立て地の所有権を取得する。よって、埋め立て工事を第三者に請け負わせた場合であっても、免許を受けたものが所有権を取得することになる。",
+        "text": "公有水面埋立法の規定に基づき埋立ての免許を受けた者は、埋立工事を第三者に請け負わせた場合であっても、その竣工認可に基づいて埋立地の所有権を取得することになるから、自らを所有者として土地の表題登記の申請をすることができる。",
+        "mastery": 0,
+        "truth": true,
+        "label": "イ"
+      },
+      {
+        "truth": false,
+        "label": "ウ",
+        "text": "表題登記がない区分建物の所有権を売買により取得した者は、その所有権の取得の日から１月以内に、表題登記の申請をしなければならない。",
+        "mastery": 0,
+        "expl": "区分建物を新築した所有者は、一月以内に区分建物の表題登記を申請しなければならない。区分建物の場合、新築した所有者（原始所有者）だけに申請義務が課されており、相続人その他の一般系承認人や転得者には申請義務が課されていない。"
+      },
+      {
+        "mastery": 0,
+        "text": "国から払下げを受けた建物の表題登記の申請をする場合の申請情報の内容のうち、登記原因の日付は、払下げの年月日である。",
+        "label": "エ",
+        "truth": false,
+        "expl": "建物の表題登記における登記原因の日付は、建物の新築年月日である。よって、未登記建物を時効取得した日や、国から払い下げを受けた日は登記原因の日付とならない。"
+      },
+      {
+        "label": "オ",
+        "expl": "建物を新築した時は、建物の表題登記を申請しなければならない。また、区分建物としての要件を満たしている場合、区分建物として表題登記をすることができる。区分建物として登記する場合は、一棟の建物に属する全部の区分建物の表題部を一括申請しなければならない。敷地権のない区分建物も同様である。",
+        "truth": true,
+        "mastery": 0,
+        "text": "敷地権のない区分建物であっても、その表題登記の申請は、当該区分建物が属する一棟の建物に属する他の区分建物の表題登記の申請と併せてしなければならない。"
+      }
+    ],
+    "combos": [
+      "アイ",
+      "アウ",
+      "イオ",
+      "ウエ",
+      "エオ"
+    ],
+    "comboCorrect": 2
+  },
+  {
+    "updatedAt": 1786664348472,
+    "type": "set",
+    "createdAt": 1786623583755,
+    "mastery": 1,
+    "stem": "土地の分筆の登記（土地の一部が別の地目になった場合にする分筆の登記を除く。）の申請に関する次の１から５までの記述のうち、正しいものはどれか。",
+    "comboCorrect": 1,
+    "qnum": "問題６",
+    "year": "平成17年",
+    "combos": [
+      "１",
+      "２",
+      "３",
+      "４",
+      "５"
+    ],
+    "category": "土地",
+    "branches": [
+      {
+        "label": "1",
+        "truth": false,
+        "mastery": 0,
+        "text": "仮差押えの登記がされている土地について、当該土地の所有権の登記名義人が分筆の登記の申請をするときは、仮差押債権者が承諾したことを証する情報を申請情報と併せて提供しなければならない。",
+        "expl": "仮差押えの登記がされている土地について分筆する場合、仮差押債権者の承諾照明情報の提供は必要ない。"
+      },
+      {
+        "text": "共有名義となっている土地について共有物分割の訴えが提起され、当該訴えに係る訴訟において裁判上の和解が成立したときは、共有者として登記されている登記名義人のうちの１人は、和解調書の正本を代位原因を証する情報として、他の登記名義人に代位して、分筆の登記の申請をすることができる。",
+        "mastery": 0,
+        "truth": true,
+        "expl": "共有物分割の裁判または訴訟上の和解によって共有物が分割された場合において、共有登記名義人の一部の者が分筆登記の申請をしないときは、他の登記名義人が代位して分筆登記の申請をすることができる。",
+        "label": "2"
+      },
+      {
+        "mastery": 0,
+        "expl": "所有権以外の権利が敷地権である旨の登記がされている土地について分筆する場合、区分建物の所有権登記名義人の承諾照明情報の提供は必要ない。",
+        "text": "所有権以外の権利が敷地権である旨の登記がされている土地について、当該土地の所有権の登記名義人が分筆の登記の申請をするときは、当該所有権以外の権利を敷地権とする区分建物の所有権の登記名義人全員が承諾したことを証する情報を申請情報と併せて提供しなければならない。",
+        "label": "3",
+        "truth": false
+      },
+      {
+        "text": "共有名義となっている土地の共有者として登記されている登記名義人のうちの１人は、他の登記名義人全員が承諾したことを証する情報を申請情報と併せて提供することにより、単独で、当該土地の分筆の登記の申請をすることができる。",
+        "truth": false,
+        "label": "4",
+        "mastery": 0,
+        "expl": "分筆登記は所有者の意思により申請するものであるが、共有物の軽微変更に該当し、所有者（表題部所有者または所有権の登記名義人）またはその相続人の持ち分の価格の過半数の者で申請することができる。ただし、そのためには申請人となる必要があり、本肢のように共有持ち分の価格を合算して過半数となる他の共有者の承諾書を提供するだけでは足らない。"
+      },
+      {
+        "mastery": 0,
+        "text": "信託の登記がされている土地について、受託者として登記されている者は、分筆の登記の申請をすることができない。",
+        "expl": "受託者は、信託財産に属する財産の管理または処分などの権限を有している。そして、信託の登記では、受託者を登記権利者とする登記がなされる。よって、登記記録から受託者であることがわかるため、受託者から分筆の登記を申請することができる。",
+        "truth": false,
+        "label": "5"
+      }
+    ]
+  },
+  {
+    "createdAt": 1786624906667,
+    "updatedAt": 1786664477437,
+    "comboCorrect": 3,
+    "qnum": "問題７",
+    "year": "平成17年",
+    "mastery": 1,
+    "stem": "地図の訂正の申出に関する次のアからオまでの記述のうち、誤っているものの組合せは、後記１から５までのうちどれか。",
+    "combos": [
+      "アウ",
+      "アオ",
+      "イウ",
+      "イエ",
+      "エオ"
+    ],
+    "branches": [
+      {
+        "text": "地図に表示された土地の区画又は地番に誤りがある場合において、当該土地が共有名義となっているときは、その訂正の申出は、共有者として登記されている登記名義人のうちの１人からすることができる。",
+        "truth": true,
+        "mastery": 0,
+        "label": "ア",
+        "expl": "地図に表示された土地の区画または地番に誤りがあるときは、その土地の表題部所有者もしくは所有権の登記名義人またはそれらの相続人その他の一般継承人は、そのうちの一人から地図訂正の申出をすることができる。"
+      },
+      {
+        "mastery": 0,
+        "text": "地図に表示された土地の区画又は地番に誤りがある場合には、当該土地の抵当権の登記名義人は、その訂正の申出をすることができる。",
+        "label": "イ",
+        "truth": false,
+        "expl": "地図の訂正の申出は、その土地の表題部所有者もしくは所有権の登記名義人またはそれらの相続人その他の一般継承人からする。当該土地の抵当権の登記名義人からはすることができない。"
+      },
+      {
+        "expl": "訂正の情報の他に、土地の区画に誤りがある場合がある場合は、土地所在図または地積測量図を提供しなければならない。",
+        "truth": true,
+        "mastery": 0,
+        "label": "ウ",
+        "text": "地図に表示された土地の区画に誤りがある場合において、その訂正の申出をするときは、土地所在図又は地積測量図を地図訂正申出情報と併せて提供しなければならない。"
+      },
+      {
+        "expl": "申出人が相続人その他一般継承人の場合は、表題部所有者または所有権の登記名義人の相続人その他一般継承人である旨を記載する。被継承人（被相続人）の住所は申出情報とはならない。これは登記の申請における一般継承人からの申請情報と同様の取り扱いである。",
+        "mastery": 0,
+        "text": "地図の訂正の申出人が表題部所有者又は所有権の登記名義人の一般承継人であるときは、一般承継の時における表題部所有者又は所有権の登記名義人の住所を地図訂正申出情報の内容としなければならない。",
+        "truth": false,
+        "label": "エ"
+      },
+      {
+        "truth": true,
+        "label": "オ",
+        "text": "地図に表示された土地の区画に誤りがあるために地図の訂正の申出をする場合において、当該土地の登記記録の地積に錯誤があるときは、当該地図の訂正の申出は、地積に関する更正の登記の申請と併せてしなければならない。",
+        "expl": "地図の訂正の申出をする場合において、当該土地の登記記録の地積に錯誤があるときは、地図訂正の申出と併せて土地の地積を更正する登記をしなければならない。",
+        "mastery": 0
+      }
+    ],
+    "type": "set",
+    "category": "総論"
+  },
+  {
+    "comboCorrect": 2,
+    "year": "平成17年",
+    "combos": [
+      "アイ",
+      "アオ",
+      "イウ",
+      "ウエ",
+      "エオ"
+    ],
+    "qnum": "問題８",
+    "branches": [
+      {
+        "text": "甲建物の表題登記の申請をする場合において、附属建物として登記する乙建物が区分建物であり、かつ、当該区分建物が属する一棟の建物の名称を申請情報の内容としたときは、当該一棟の建物の構造及び床面積を申請情報の内容とすることを要しない。",
+        "mastery": 0,
+        "expl": "区分建物に関する表示または権利の登記をする場合において、一棟の建物の名称を申請情報の内容とした時は、一棟の建物の名称を申請情報の内容とした時は、一棟の建物の構造及び床面積を申請情報の内容としないとすることができる。ただし、区分建物の表題登記をする場合や、非区分建物を区分して区分建物とする場合など、一棟の建物の表題部がないときは、一棟の建物の名称を申請情報の内容としても一棟の建物の構造および床面積を省略することはできない。",
+        "truth": false,
+        "label": "ア"
+      },
+      {
+        "label": "イ",
+        "truth": true,
+        "text": "甲建物の表題登記の申請をする場合において、附属建物として登記する乙建物が区分建物でないときは、当該附属建物の所在する市、区、郡、町、村、字及び土地の地番並びに種類、構造及び床面積を申請情報の内容としなければならない。",
+        "mastery": 0,
+        "expl": "附属建物があるときは、附属建物の所在、符号、種類、構造、床面積を登記しなければならない。"
+      },
+      {
+        "expl": "主である建物と附属建物が異なる登記所の管轄にある場合であっても、効用上一体として利用される状態にあり、所有者の意思に反しない限り一個の建物として登記することができる。",
+        "label": "ウ",
+        "truth": true,
+        "mastery": 0,
+        "text": "甲建物の所在地とこれに附属する乙建物の所在地とが異なる登記所の管轄区域に属する場合であっても、乙建物を甲建物の附属建物とする建物の表題登記の申請をすることができる。"
+      },
+      {
+        "text": "甲建物について表題登記をした後、これに附属する乙建物を新築した場合において、乙建物を甲建物の附属建物として登記するためには、乙建物について表題登記の申請をした後、建物の合併の登記の申請をしなければならない。",
+        "mastery": 0,
+        "expl": "主である建物の登記記録には、附属建物の登記記録も含まれ、一体として一個の建物として登記されている。よって、附属建物を新築または滅失した場合は、主である建物の床面積変更登記のように扱われるため、建物の表題部の変更登記を申請することになる。",
+        "truth": false,
+        "label": "エ"
+      },
+      {
+        "mastery": 0,
+        "expl": "主である建物と附属建物について敷地権の有無が異なっていても、効用上一体として利用される状態にあり、所有者の意思に反しない限り一個の建物として登記することが得きる。",
+        "label": "オ",
+        "truth": false,
+        "text": "甲建物について敷地権がなく、これに附属する乙建物が敷地権のある区分建物である場合には、乙建物を甲建物の附属建物とする建物の表題登記の申請をすることができない。"
+      }
+    ],
+    "category": "建物",
+    "type": "set",
+    "updatedAt": 1786653591324,
+    "mastery": 1,
+    "createdAt": 1786631264847,
+    "stem": "附属建物に関する次のアからオまでの記述のうち、正しいものの組合せは、後記１から５までのうちどれか。"
+  },
+  {
+    "year": "平成17年",
+    "qnum": "問題９",
+    "comboCorrect": 3,
+    "category": "総論",
+    "branches": [
+      {
+        "mastery": 0,
+        "expl": "登記識別情報とは、登記名義人が登記を申請する場合において、当該登記名義人自らが当該登記を申請している事を確認するために用いられるもので、表示に関する登記では所有権の登記がある土地の合筆、建物の合体、建物の合併を行う場合、係る不動産のうち一つの登記識別情報を提供しなければならない。提供がない場合は、事前通知などの手続きがされる。",
+        "text": "登記名義人が一定の登記を申請する場合においては、当該登記名義人自らが当該登記を申請していることを確認するため、正当な理由がある場合を除き、その申請情報と併せて登記名義人の登記識別情報を提供しなければならない。例えば、（ア）所有権の登記がある土地の合筆の登記の申請をする場合や、",
+        "truth": true,
+        "label": "ア"
+      },
+      {
+        "mastery": 0,
+        "label": "イ",
+        "truth": false,
+        "expl": "土地分筆登記においては、登記識別情報を提供することはない。",
+        "text": "（イ）所有権の登記がある土地の分筆の登記の申請をする場合には、その申請情報と併せて登記名義人の登記識別情報を提供しなければならない。"
+      },
+      {
+        "expl": "所有権の登記がある土地の合筆、建物の合体、建物の合併を行う場合、係る不動産のうち一つの所有権の登記名義人の登記識別情報を提供しなければならない。提供がない場合、登記官は申請人である登記名義人に対し、当該申請があった旨および当該申請の内容が真実であると思料するときは、法務省令で定める期間内にその旨の申出をすべき旨を通知しなければならない。登記官は、この期間内にあっては、当該申し出がない限り、当該申請に係る登記をすることができず、期間に内に申し出がなければ申請は却下される。",
+        "text": "登記識別情報が通知されなかった場合等、登記識別情報を提供することができない正当な理由があるために、申請人が登記識別情報を提供せずに登記を申請するときは、登記官から、登記名義人に対し、（ウ）申請があった旨及び当該申請の内容が真実であると思料するときは一定期間内にその旨の申出をすべき旨が通知される。",
+        "mastery": 0,
+        "truth": true,
+        "label": "ウ"
+      },
+      {
+        "truth": true,
+        "label": "エ",
+        "text": "しかし、当該申請が資格者代理人によってされた場合であって、登記官が当該資格者代理人から本人確認情報の提供を受け、かつ、その内容を相当と認めるときは、上記の通知はされない。この場合においては、（エ）当該資格者代理人が登記の申請の代理を業とすることができる者であることを証する情報を併せて提供しなければならない。",
+        "expl": "資格者代理人が本人確認情報を提供するときは、当該資格者代理人が登記の申請の代理を業とすることができるものであることを証する情報を合わせて提供しなければならず、調査士が資格者代理人である場合、具体的には発行後３月以内の調査士会が発行した職員証明書または調査士会連合会が発行した電子証明書を提供する。",
+        "mastery": 0
+      },
+      {
+        "label": "オ",
+        "mastery": 0,
+        "truth": false,
+        "text": "資格者代理人が申請人と面識がない場合において、本人確認情報の作成のため申請人について確認をするときは、（オ）申請人から健康保険証の提示を受ければ、他の資料の提示を受けることを要しない。",
+        "expl": "申請人から提示を受ける書面は、①運転免許証、個人番号カード、旅券などの場合はいずれか一点以上、②国民健康保険、健康保険証などの場合はいずれか二点、③健康保険証等と官公庁から発行または発給された書面その他これに準ずるものであって、当該申請人の氏名、住所および生年月日の記載があるもののうちいずれか１点以上である必要がある。"
+      }
+    ],
+    "type": "set",
+    "mastery": 1,
+    "updatedAt": 1786664815630,
+    "createdAt": 1786632116491,
+    "stem": "登記識別情報の提供を要する登記の申請に関する次の文章の太線部分のアからオまでの記述のうち、誤っているものの組合せは、後記１から５までのうちどれか。",
+    "combos": [
+      "アウ",
+      "アオ",
+      "イエ",
+      "イオ",
+      "ウエ"
+    ]
+  },
+  {
+    "type": "set",
+    "year": "平成17年",
+    "category": "区分建物",
+    "qnum": "問題１０",
+    "stem": "建物の表示に関する登記における申請情報又は添付情報に関する次のアからオまでの記述のうち、誤っているものは幾つあるか。",
+    "branches": [
+      {
+        "label": "ア",
+        "text": "区分建物の表題登記の申請をする場合において、当該区分建物について敷地権が存するときは、敷地権の目的となる土地の所在する市、区、郡、町、村及び字並びに当該土地の地番、地目及び地積、敷地権の種類及び割合並びに敷地権の登記原因及びその日付を申請情報の内容としなければならない。",
+        "truth": true,
+        "expl": "区分建物の表題登記を申請する場合、敷地権が存するときは、敷地権の目的となる土地の表示を申請情報の内容としなければならない。",
+        "mastery": 0
+      },
+      {
+        "label": "イ",
+        "text": "共用部分である区分建物が当該区分建物の属する一棟の建物以外の一棟の建物に属する区分建物の区分所有者の共用に供されるものである旨の登記がされている場合において、その変更の登記又は更正の登記の申請をするときは、変更又は錯誤若しくは遺漏があったことを証する情報及び当該共用部分である区分建物の所有者を証する情報を申請情報と併せて提供しなければならない。",
+        "truth": true,
+        "expl": "共用部分または団地共用部分である建物の所有者から表題部の変更または更正登記を申請する場合は、その所有権を証する情報の提供も必要となる。",
+        "mastery": 0
+      },
+      {
+        "label": "ウ",
+        "text": "いずれも所有権の登記がない２以上の区分建物でない建物について合体による登記等の申請をするときは、建物図面、各階平面図、表題部所有者となる者が所有権を有することを証する情報及び表題部所有者となる者の住所を証する情報を申請情報と併せて提供しなければならない。",
+        "truth": true,
+        "expl": "いずれも所有権の登記がない建物の合体による登記等を申請する場合、建物図面及び各階平面図、所有権照明情報、住所証明情報を提供しなければならない。",
+        "mastery": 0
+      },
+      {
+        "label": "エ",
+        "text": "建物の表題登記の申請をする場合において、当該建物の所有者を証する情報として建物の引渡証明書を提供するときは、当該引渡証明書に添付する印鑑に関する証明書は、３月以内に作成されたものでなければならない。",
+        "truth": false,
+        "expl": "建物の場合、新築または増築部の建基法６条の規定による確認検査証、建築請負人または敷地所有者の証明書、国有建物の払い下げの契約書、さらに固定資産税の納付証明書などがあたる。一般には、建築確認済証と印鑑証明書付きの工事施工会社の工事完了引渡し証明書あるいは工事代金の領収書を添付する。工事施工会社の工事完了引渡し証明書と併せて提出する印鑑証明書には期間の制限はない。",
+        "mastery": 0
+      },
+      {
+        "label": "オ",
+        "text": "同一の登記所に対して同時に２以上の建物の表題登記の申請をする場合において、各申請に共通する添付情報があるときは、当該添付情報は、一の申請の申請情報と併せて提供すれば足りる。",
+        "truth": true,
+        "expl": "同一の登記上に対して同時に複数の申請をする場合、申請人が同一であり革新性に共通の添付情報があれば、当該添付情報は、一の申請の申請情報として提供すれば足りる。",
+        "mastery": 0
+      }
+    ],
+    "combos": [
+      "１個",
+      "２個",
+      "３個",
+      "４個",
+      "５個"
+    ],
+    "comboCorrect": 0,
+    "mastery": 0,
+    "createdAt": 1786693596049,
+    "updatedAt": 1786693819532
+  }
+];
 /* 貼り付け例：
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXX",
@@ -322,7 +913,7 @@ function cloudDeleteQuestion(id){if(!Cloud.enabled||!Cloud.user)return;
 let __progT=null;
 function cloudSaveProgress(){if(!Cloud.enabled||!Cloud.user)return;
   clearTimeout(__progT);
-  __progT=setTimeout(()=>{uref().collection("meta").doc("progress").set({history:DB.history,log:DB.log,rabbit:DB.rabbit}).catch(()=>{});},600);}
+  __progT=setTimeout(()=>{uref().collection("meta").doc("progress").set({history:DB.history,log:DB.log,rabbit:DB.rabbit,exams:DB.exams||[]}).catch(()=>{});},600);}
 async function cloudImport(list,mode){if(!Cloud.enabled||!Cloud.user)return;
   try{
     if(mode==="replace"){const snap=await uref().collection("questions").get();
@@ -347,7 +938,7 @@ function cloudAttach(){
     normalizeQuestions();fq();softRender();
   },e=>{console.error(e);fq();}));
   Cloud.unsubs.push(uref().collection("meta").doc("progress").onSnapshot(doc=>{
-    const d=doc.data();if(d){DB.history=d.history||{};DB.log=d.log||{};if(d.rabbit)DB.rabbit=d.rabbit;}
+    const d=doc.data();if(d){DB.history=d.history||{};DB.log=d.log||{};if(d.rabbit)DB.rabbit=d.rabbit;DB.exams=d.exams||[];}
     fp();softRender();
   },e=>{fp();}));
   return Promise.all([pq,pp]);}
@@ -438,7 +1029,7 @@ function detectStyle(q){const l=(q.branches&&q.branches[0]&&q.branches[0].label)
 
 let DB={questions:[],history:{},log:{},rabbit:{name:"うーちゃん"}};
 function uid(){return "q"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-function seed(){return{history:{},log:{},rabbit:{name:"うーちゃん"},questions:[
+function seed(){return{history:{},log:{},rabbit:{name:"うーちゃん"},exams:[],questions:[
   {id:uid(),type:"set",year:"平成17年",category:"物権",qnum:"見本",mastery:0,
    stem:"次の記述の正誤を判断しなさい。（動作確認用の自作サンプル。削除できます）",
    branches:[
@@ -451,7 +1042,7 @@ function normalizeQuestions(){
   DB.questions.forEach(q=>{if(!q.type)q.type="ox";if(typeof q.mastery!=="number")q.mastery=0;
     if(q.type==="set"){if(!Array.isArray(q.branches))q.branches=[];q.branches.forEach((b,i)=>{if(!b.label)b.label=SUBSEQ[i]||"";if(typeof b.mastery!=="number")b.mastery=0;if(b.truth!==true&&b.truth!==false)b.truth=null;});if(!Array.isArray(q.combos))q.combos=[];}});}
 async function loadDB(){const raw=await Store.get(KEY);if(raw){try{DB=JSON.parse(raw);}catch(e){DB=seed();}}else{DB=seed();await saveDB();}
-  if(!DB.questions)DB.questions=[];if(!DB.history)DB.history={};if(!DB.log)DB.log={};if(!DB.rabbit)DB.rabbit={name:"うーちゃん"};
+  if(!DB.questions)DB.questions=[];if(!DB.history)DB.history={};if(!DB.log)DB.log={};if(!DB.rabbit)DB.rabbit={name:"うーちゃん"};if(!DB.exams)DB.exams=[];
   normalizeQuestions();}
 async function saveDB(){
   if(Cloud.enabled&&Cloud.user){cloudSaveProgress();return;}
@@ -506,126 +1097,247 @@ function incQnum(s){if(!s)return "";const m=s.match(/\d+/);return m?s.replace(/\
 function sumAttempts(){let a=0;Object.values(DB.history).forEach(h=>a+=h.attempts||0);return a;}
 function streakDays(){let s=0,d=new Date();if(!(DB.log[dateKey(d)]>0))d.setDate(d.getDate()-1);while(DB.log[dateKey(d)]>0){s++;d.setDate(d.getDate()-1);}return s;}
 
+
+
+/* ---------- 試験日 ---------- */
+function examList(){return (DB.exams||[]).slice().sort((a,b)=>a.date<b.date?-1:1);}
+function addExam(){askInput("試験の名前（例：令和8年度 筆記試験）","","次へ",(label)=>{
+  if(!label||!label.trim())return;
+  askInput("日付を 2026-10-18 の形で入力してね","","登録",(dt)=>{
+    const v=(dt||"").trim();
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){toast("日付は 2026-10-18 の形で入れてね");return;}
+    if(!DB.exams)DB.exams=[];
+    DB.exams.push({id:"e"+Date.now().toString(36),label:label.trim().slice(0,24),date:v});
+    saveDB();toast("試験日を登録したよ");
+    const d=new Date(v);calView={y:d.getFullYear(),m:d.getMonth()};renderCalendar();});});}
+function removeExam(id){const e=(DB.exams||[]).find(x=>x.id===id);if(!e)return;
+  askConfirm("この試験日を削除しますか？",e.label+"（"+e.date+"）","削除する",()=>{
+    DB.exams=(DB.exams||[]).filter(x=>x.id!==id);saveDB();toast("削除しました");renderCalendar();},true);}
+/* ---------- 年度カラー（時代でグループ分け） ---------- */
+function yearMeta(y){
+  const m=(y||"").match(/^(平成|令和)(元|\d+)年$/);
+  if(!m)return{h:95,s:14,l:58,era:"—"};
+  const n=m[2]==="元"?1:+m[2];
+  /* 平成前期=ライム〜グリーン / 平成後期=オリーブ〜ハンター / 令和=イエロー〜アンバー〜ローズ */
+  if(m[1]==="平成"&&n<=22){const i=Math.max(0,Math.min(n-17,5));return{h:82-i*4,s:52,l:34+i*7,era:"平成前期"};}
+  if(m[1]==="平成"){const i=Math.max(0,Math.min(n-23,8));return{h:124+i*3,s:34,l:28+i*5,era:"平成後期"};}
+  const i=Math.max(0,Math.min(n-1,8));return{h:44-i*5,s:66,l:44+i*3,era:"令和"};
+}
+function yearColor(y){const c=yearMeta(y);return`hsl(${c.h},${c.s}%,${c.l}%)`;}
+function yearTint(y){const c=yearMeta(y);return`hsl(${c.h},${Math.round(c.s*0.75)}%,94%)`;}
 /* ---------- ウサギ ---------- */
-const STAGES=[
-  {min:0,   name:"こうさぎ",          acc:"none",  sc:0.72},
-  {min:30,  name:"げんきなこうさぎ",  acc:"blush", sc:0.82},
-  {min:120, name:"若ウサギ",          acc:"clover",sc:0.90},
-  {min:350, name:"見習い調査士うさぎ",acc:"scarf", sc:0.98},
-  {min:800, name:"調査士うさぎ",      acc:"flag",  sc:1.04},
-  {min:1600,name:"達人うさぎ",        acc:"cap",   sc:1.10}
-];
+const STAGES=(()=>{
+  const names=["こうさぎ","げんきなこうさぎ","たんけんうさぎ","若ウサギ","はりきりうさぎ","がんばりやうさぎ","みならいうさぎ","ひよっこ調査士","かけだし調査士","一人前うさぎ","たのもしいうさぎ","ベテランうさぎ","主任うさぎ","調査士うさぎ","先輩うさぎ","師範うさぎ","名うてのうさぎ","達人うさぎ","伝説のうさぎ","名人うさぎ"];
+  return names.map((n,i)=>({min:i*100,name:n,lv:i+1}));
+})();
+/* 節目でふえる持ちもの */
+const GEAR=[{at:4,k:"clover"},{at:6,k:"scarf"},{at:8,k:"bag"},{at:10,k:"flag"},{at:12,k:"glasses"},{at:14,k:"badge"},{at:16,k:"cap"},{at:18,k:"pole"},{at:20,k:"star"}];
 function stageIdx(t){let i=0;for(let k=0;k<STAGES.length;k++)if(t>=STAGES[k].min)i=k;return i;}
+function gearsFor(lv){return GEAR.filter(g=>lv>=g.at).map(g=>g.k);}
 function rabbitName(){return (DB.rabbit&&DB.rabbit.name)||"うーちゃん";}
 let __rbid=0;
-function rabbitSVG(idx,opts){
-  opts=opts||{};const st=STAGES[Math.max(0,Math.min(idx,STAGES.length-1))];
-  const size=opts.size||112,flip=!!opts.flip,alt=!!opts.alt,gid="rg"+(++__rbid);
-  const f1=alt?"#efe0c4":"#f7ebcf", f2=alt?"#d8ba86":"#e6c795", f3=alt?"#f7efdd":"#fbf4e3";
-  const ol="rgba(125,92,44,.32)";
-  const acc=st.acc, SC=st.sc*(size/200);
-  const blush=(acc!=="none")?`<ellipse cx="58" cy="103" rx="6.5" ry="4" fill="#f0bdb6" opacity=".7"/>`:"";
-  const clover=acc==="clover"||acc==="scarf"||acc==="flag"||acc==="cap"?`<g><circle cx="40" cy="170" r="5" fill="#5aa06f"/><circle cx="47" cy="166" r="5" fill="#5aa06f"/><circle cx="47" cy="173" r="5" fill="#5aa06f"/><path d="M46 175 q-3 7 -8 10" fill="none" stroke="#3c7a52" stroke-width="2.2" stroke-linecap="round"/></g>`:"";
-  const scarf=acc==="scarf"||acc==="flag"||acc==="cap"?`<path d="M48 116 q24 14 48 6 l-2.5 11 q-23 8 -46 -5 z" fill="#2f5d50"/><path d="M92 126 l9 20 -11 -3 -3.5 -14 z" fill="#274c41"/>`:"";
-  const flag=acc==="flag"||acc==="cap"?`<line x1="168" y1="104" x2="168" y2="182" stroke="#3a3128" stroke-width="3" stroke-linecap="round"/><path d="M168 106 l26 9 -26 9 z" fill="#c8542b"/><line x1="160" y1="182" x2="176" y2="182" stroke="#3a3128" stroke-width="3" stroke-linecap="round"/>`:"";
-  const cap=acc==="cap"?`<g transform="rotate(-6 70 52)"><path d="M70 42 l32 11 -32 11 -32 -11 z" fill="#254a3f"/><rect x="66" y="36" width="7" height="8" rx="2" fill="#254a3f"/><line x1="102" y1="53" x2="107" y2="70" stroke="#be9a2e" stroke-width="2.4"/><circle cx="107" cy="72" r="3.4" fill="#be9a2e"/></g>`:"";
-  return `<svg viewBox="0 0 200 200" width="${size}" height="${size}" class="rb" xmlns="http://www.w3.org/2000/svg" aria-label="うさぎ">
-  <defs>
-    <linearGradient id="${gid}a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${f1}"/><stop offset="1" stop-color="${f2}"/></linearGradient>
-    <linearGradient id="${gid}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${f3}"/><stop offset="1" stop-color="${f1}"/></linearGradient>
-  </defs>
-  <g transform="${flip?"scale(-1,1) translate(-200,0) ":""}translate(100,196) scale(${SC.toFixed(3)}) translate(-100,-196)">
-    <ellipse cx="105" cy="188" rx="72" ry="8" fill="rgba(90,70,40,.10)"/>
-    <g class="rb-body">
-      <circle cx="160" cy="150" r="15" fill="${f3}" stroke="${ol}" stroke-width="1.3"/>
-      <ellipse cx="126" cy="136" rx="49" ry="47" fill="url(#${gid}a)" stroke="${ol}" stroke-width="1.5"/>
-      <path d="M92 112 q30 -10 52 12" stroke="rgba(150,110,55,.22)" fill="none" stroke-width="6" stroke-linecap="round"/>
-      <ellipse cx="118" cy="150" rx="26" ry="22" fill="rgba(150,110,55,.10)"/>
-      <ellipse cx="80" cy="140" rx="30" ry="40" fill="url(#${gid}b)" stroke="${ol}" stroke-width="1.5"/>
-      <rect x="60" y="150" width="13" height="32" rx="6.5" fill="${f1}" stroke="${ol}" stroke-width="1.3"/>
-      <rect x="80" y="152" width="13" height="30" rx="6.5" fill="${f2}" stroke="${ol}" stroke-width="1.3"/>
-      <ellipse cx="66" cy="183" rx="11" ry="6" fill="${f3}" stroke="${ol}" stroke-width="1.3"/>
-      <ellipse cx="87" cy="183" rx="11" ry="6" fill="${f1}" stroke="${ol}" stroke-width="1.3"/>
-    </g>
-    <g class="rb-ear1"><ellipse cx="88" cy="36" rx="11" ry="33" fill="url(#${gid}a)" stroke="${ol}" stroke-width="1.5" transform="rotate(9 88 66)"/><ellipse cx="88" cy="41" rx="5" ry="23" fill="#eec0b6" opacity=".85" transform="rotate(9 88 66)"/></g>
-    <g class="rb-ear2"><ellipse cx="60" cy="34" rx="11" ry="33" fill="url(#${gid}b)" stroke="${ol}" stroke-width="1.5" transform="rotate(-15 60 66)"/><ellipse cx="60" cy="39" rx="5" ry="23" fill="#eec0b6" opacity=".85" transform="rotate(-15 60 66)"/></g>
-    <g class="rb-head">
-      <circle cx="70" cy="88" r="32" fill="url(#${gid}b)" stroke="${ol}" stroke-width="1.5"/>
-      <ellipse cx="50" cy="98" rx="16" ry="12" fill="${f3}"/>
-      ${blush}
-      <path d="M41 92 q3.5 -2.5 7 0 q-1 4.5 -3.5 4.5 t-3.5 -4.5" fill="#e39a94"/>
-      <path d="M45 100 q3 4 8 3" stroke="#8a6a3a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-      <line x1="34" y1="96" x2="20" y2="93" stroke="rgba(120,90,45,.4)" stroke-width="1.2" stroke-linecap="round"/>
-      <line x1="34" y1="101" x2="21" y2="103" stroke="rgba(120,90,45,.4)" stroke-width="1.2" stroke-linecap="round"/>
-      <ellipse cx="80" cy="84" rx="6.5" ry="7.5" fill="#2b211a"/>
-      <circle cx="82.5" cy="81.5" r="2" fill="#fff" opacity=".92"/>
-      <ellipse class="rb-lid" cx="80" cy="84" rx="7.4" ry="8.2" fill="${f3}" opacity="0"/>
-    </g>
-    ${scarf}${clover}${flag}${cap}
-  </g></svg>`;}
-function rabbitScene(idx){
-  const n=Math.max(0,Math.min(idx-1,4));
-  let comps="";
-  for(let i=0;i<n;i++)comps+=`<div>${rabbitSVG(i===0?1:0,{size:40+(i%2?0:4),flip:i%2===0,alt:i%2===1})}</div>`;
-  return{main:rabbitSVG(idx,{size:128}),comps,n};}
-/* ---------- 背景シーン ---------- */
-const SCENES=[
-  {id:"room",  name:"おへや",   unlock:0,   sky:["#f6eedd","#eadfc6"], ground:"#d9bd8f", ground2:"#c9a874"},
-  {id:"garden",name:"にわ",     unlock:60,  sky:["#dfeee4","#c9e2cf"], ground:"#8fc08a", ground2:"#7aae78"},
-  {id:"field", name:"のはら",   unlock:200, sky:["#dcecf5","#c2ddee"], ground:"#9dcb84", ground2:"#84b96e"},
-  {id:"engawa",name:"えんがわ",  unlock:450, sky:["#f2e7d2","#e2d0ae"], ground:"#c99a63", ground2:"#b3854f"},
-  {id:"night", name:"よぞら",   unlock:900, sky:["#2b3556","#1d2440"], ground:"#3f4a6b", ground2:"#333c58"},
-  {id:"snow",  name:"ゆきのひ", unlock:1400,sky:["#e8eef4","#d3dde8"], ground:"#f2f6fa", ground2:"#dde6ee"}
+/* 毛色バリエーション */
+const COATS=[
+  {body:"#ffffff",shade:"#f2efe4",ear:"#f4c9c9",cheek:"#f6c6c2"},
+  {body:"#fdfaf0",shade:"#efe9d8",ear:"#f2c6c6",cheek:"#f4c3bf"},
+  {body:"#f6f6f4",shade:"#e8e8e4",ear:"#efc4c4",cheek:"#f2c0bc"},
+  {body:"#fffdf6",shade:"#f0ebdc",ear:"#f5cccc",cheek:"#f7c9c5"},
+  {body:"#f9f7f2",shade:"#ebe7dc",ear:"#f1c7c7",cheek:"#f3c4c0"}
 ];
+function rabbitSVG(idx,opts){
+  opts=opts||{};
+  const lv=STAGES[Math.max(0,Math.min(idx,STAGES.length-1))].lv;
+  const size=opts.size||120,flip=!!opts.flip,coat=COATS[(opts.coat||0)%COATS.length];
+  const face=opts.face||"normal";
+  const gears=opts.noGear?[]:gearsFor(lv);
+  /* 縦長の立ち姿。size は横幅、高さは1.45倍 */
+  const SC=(0.80+Math.min(lv,20)*0.012)*(size/150);
+  const OL="#2e2b28", SW=7;                    /* 濃いチャコール・太め */
+  const has=k=>gears.indexOf(k)>=0;
+
+  /* --- 目：小さい黒楕円・顔の上半分・間隔せまめ --- */
+  let eyes,mouth;
+  const EY=100, EX=13;                          /* 目の高さ / 中心からの距離 */
+  if(face==="happy"){
+    eyes=`<path d="M${75-EX+EX} ${EY} q0 0 0 0" fill="none"/>
+      <path d="M${75} ${EY} q5 -7 10 0" stroke="${OL}" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M${105} ${EY} q5 -7 10 0" stroke="${OL}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+    mouth=`<path d="M83 120 q12 13 24 0" stroke="${OL}" stroke-width="4.4" fill="none" stroke-linecap="round"/>`;
+  }else if(face==="sleepy"){
+    eyes=`<path d="M75 ${EY} q5 5 10 0" stroke="${OL}" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M105 ${EY} q5 5 10 0" stroke="${OL}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+    mouth=`<path d="M90 118 q5 5 10 0" stroke="${OL}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  }else{
+    eyes=`<ellipse cx="${95-EX}" cy="${EY}" rx="5.4" ry="7" fill="${OL}"/>
+      <ellipse cx="${95+EX}" cy="${EY}" rx="5.4" ry="7" fill="${OL}"/>`;
+    /* 丸みのある吊り鐘型の口 */
+    mouth=`<path d="M80 120 q15 18 30 0" stroke="${OL}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  }
+  const tongue=(face==="tongue")?`<path d="M97 128 q10 3 7 14 q-9 2 -13 -9 z" fill="${coat.ear}" stroke="${OL}" stroke-width="3.4" stroke-linejoin="round"/>`:"";
+  if(face==="tongue"){
+    eyes=`<ellipse cx="${95-EX}" cy="${EY}" rx="5.4" ry="7" fill="${OL}"/><ellipse cx="${95+EX}" cy="${EY}" rx="5.4" ry="7" fill="${OL}"/>`;
+    mouth=`<path d="M80 120 q14 16 26 2" stroke="${OL}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  }
+
+  return `<svg viewBox="0 0 190 270" width="${size}" height="${size*1.42}" class="rb" xmlns="http://www.w3.org/2000/svg" aria-label="うさぎ">
+  <g transform="${flip?"scale(-1,1) translate(-190,0) ":""}translate(95,262) scale(${SC.toFixed(3)}) translate(-95,-262)">
+    <ellipse cx="95" cy="260" rx="54" ry="7" fill="rgba(58,74,52,.09)"/>
+
+    <!-- 耳：細く長く、輪郭のみ。頭より高い -->
+    <g class="rb-ear2"><path d="M76 100 C71 74 60 30 63 14 C66 2 78 2 82 14 C88 34 88 76 89 100 Z"
+      fill="${coat.body}" stroke="${OL}" stroke-width="${SW}" stroke-linejoin="round"/></g>
+    <g class="rb-ear1"><path d="M114 100 C119 74 130 30 127 14 C124 2 112 2 108 14 C102 34 102 76 101 100 Z"
+      fill="${coat.body}" stroke="${OL}" stroke-width="${SW}" stroke-linejoin="round"/></g>
+
+    <!-- 頭と胴が一体のひょうたん型（縦長・くびれ浅め・裾が広がる） -->
+    <g class="rb-body">
+      <path d="M95 74
+        C127 74 145 98 145 124
+        C145 142 139 154 135 164
+        C143 178 148 196 148 214
+        C148 238 132 250 118 250
+        L72 250
+        C58 250 42 238 42 214
+        C42 196 47 178 55 164
+        C51 154 45 142 45 124
+        C45 98 63 74 95 74 Z"
+        fill="${coat.body}" stroke="${OL}" stroke-width="${SW}" stroke-linejoin="round"/>
+
+      <!-- 足：短い縦の切れ込み＋足先が横に出る -->
+      <path d="M95 250 v-32" stroke="${OL}" stroke-width="${SW-1.5}" stroke-linecap="round"/>
+      <path d="M72 250 q-20 2 -22 -8" stroke="${OL}" stroke-width="${SW}" fill="none" stroke-linecap="round"/>
+      <path d="M118 250 q20 2 22 -8" stroke="${OL}" stroke-width="${SW}" fill="none" stroke-linecap="round"/>
+
+
+    </g>
+
+    <g class="rb-head">
+      <!-- ほお：目より下・外側、輪郭にかかる位置 -->
+      ${lv>=2?`<ellipse cx="62" cy="114" rx="13" ry="8.5" fill="${coat.cheek}" opacity=".8"/>
+      <ellipse cx="128" cy="114" rx="13" ry="8.5" fill="${coat.cheek}" opacity=".8"/>`:""}
+      ${eyes}
+      ${mouth}
+      ${tongue}
+      ${has("glasses")?`<g fill="none" stroke="${OL}" stroke-width="3.6"><circle cx="${95-EX}" cy="${EY}" r="12"/><circle cx="${95+EX}" cy="${EY}" r="12"/><path d="M${95-5} ${EY} h10"/></g>`:""}
+      <!-- リボン：頭の片側上部、耳の付け根あたり（最初から小さく付く） -->
+      ${!has("cap")?`<g transform="translate(126,86) rotate(-10)">
+        <path d="M0 0 L-11 -7 Q-13 0 -11 7 Z" fill="#e0b878" stroke="${OL}" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M0 0 L11 -7 Q13 0 11 7 Z" fill="#e0b878" stroke="${OL}" stroke-width="2.8" stroke-linejoin="round"/>
+        <circle cx="0" cy="0" r="3.4" fill="#e0b878" stroke="${OL}" stroke-width="2.6"/></g>`:""}
+      ${has("cap")?`<g transform="translate(0,-4)"><path d="M95 52 l30 10 -30 10 -30 -10 z" fill="var(--brand)" stroke="${OL}" stroke-width="4.4" stroke-linejoin="round"/><rect x="92" y="44" width="6" height="9" rx="2.5" fill="var(--brand)" stroke="${OL}" stroke-width="3.4"/><path d="M125 62 v10" stroke="var(--accent)" stroke-width="3.6" stroke-linecap="round"/><circle cx="125" cy="74" r="4" fill="var(--accent)" stroke="${OL}" stroke-width="3"/></g>`:""}
+    </g>
+
+    ${has("scarf")?`<path d="M62 144 q33 16 66 0 l-4 14 q-29 13 -58 0 z" fill="var(--brand)" stroke="${OL}" stroke-width="4.4" stroke-linejoin="round"/>`:""}
+    ${has("badge")?`<circle cx="95" cy="196" r="8" fill="var(--accent)" stroke="${OL}" stroke-width="3.6"/>`:""}
+    ${has("bag")?`<g><path d="M130 190 h22 v20 h-22 z" fill="var(--accent)" stroke="${OL}" stroke-width="4" stroke-linejoin="round"/><path d="M135 190 v-6 h12 v6" fill="none" stroke="${OL}" stroke-width="3.4"/></g>`:""}
+    ${has("clover")?`<g transform="translate(38,242)"><circle cx="-5" cy="-4" r="6" fill="var(--lime)" stroke="${OL}" stroke-width="3"/><circle cx="5" cy="-8" r="6" fill="var(--lime)" stroke="${OL}" stroke-width="3"/><circle cx="5" cy="1" r="6" fill="var(--lime)" stroke="${OL}" stroke-width="3"/></g>`:""}
+    ${has("pole")?`<line x1="162" y1="130" x2="162" y2="250" stroke="${OL}" stroke-width="4.4" stroke-linecap="round"/><path d="M162 136 h-10 v9 h10 M162 166 h-10 v9 h10" stroke="${OL}" stroke-width="3.4" fill="none"/>`:""}
+    ${has("flag")?`<g><line x1="30" y1="128" x2="30" y2="248" stroke="${OL}" stroke-width="4.4" stroke-linecap="round"/><path d="M30 130 l26 10 -26 10 z" fill="var(--accent)" stroke="${OL}" stroke-width="4" stroke-linejoin="round"/></g>`:""}
+    ${has("star")?`<path d="M95 6 l4.6 10 11 1 -8.6 7.6 2.6 11 -9.6 -6 -9.6 6 2.6 -11 -8.6 -7.6 11 -1 z" fill="var(--accent)" stroke="${OL}" stroke-width="3.2" stroke-linejoin="round"/>`:""}
+  </g></svg>`;}
+
+/* 仲間: 200問ごと1匹、最大10匹。5匹以上で部屋を分ける */
+function companionCount(total){return Math.max(0,Math.min(10,Math.floor(total/200)));}
+function roomCount(total){return companionCount(total)>=5?2:1;}
+function roomMembers(total,room){
+  const n=companionCount(total);
+  if(n<5)return{me:true,comps:Array.from({length:n},(_,i)=>i)};
+  if(room===0)return{me:true,comps:Array.from({length:Math.min(5,n)},(_,i)=>i)};
+  return{me:false,comps:Array.from({length:n-5},(_,i)=>i+5)};}
+
+/* ---------- 背景シーン（11種・200問ごと） ---------- */
+const SCENES=[
+  {id:"room",  name:"おへや",     unlock:0},
+  {id:"garden",name:"にわ",       unlock:200},
+  {id:"field", name:"のはら",     unlock:400},
+  {id:"river", name:"かわべ",     unlock:600},
+  {id:"engawa",name:"えんがわ",   unlock:800},
+  {id:"forest",name:"もりのなか", unlock:1000},
+  {id:"flower",name:"はなばたけ", unlock:1200},
+  {id:"sunset",name:"ゆうやけ",   unlock:1400},
+  {id:"night", name:"よぞら",     unlock:1600},
+  {id:"snow",  name:"ゆきのひ",   unlock:1800},
+  {id:"sakura",name:"さくら",     unlock:2000}
+];
+const SCENE_ART={
+  room:  {sky:["#fdf8ea","#f6eed9"],ground:"#ecdcbe",g2:"#e0cba6"},
+  garden:{sky:["#f2f7e4","#e4eed2"],ground:"#cfe3ad",g2:"#bcd699"},
+  field: {sky:["#eef6e6","#dfeed4"],ground:"#d3e8b4",g2:"#c0dc9e"},
+  river: {sky:["#eef6f2","#ddeee9"],ground:"#cfe6b8",g2:"#bcd9a3"},
+  engawa:{sky:["#faf3e2","#f0e5cb"],ground:"#e6d0a8",g2:"#d8bd90"},
+  forest:{sky:["#eef4e6","#dfead4"],ground:"#c6dfae",g2:"#b2d199"},
+  flower:{sky:["#fbf4e8","#f6ecdc"],ground:"#d5e8b6",g2:"#c2dca0"},
+  sunset:{sky:["#fdeacd","#f9d3a8"],ground:"#e5c99f",g2:"#d7b688"},
+  night: {sky:["#e4e7ea","#d3d9dd"],ground:"#c9d2c4",g2:"#b8c3b3"},
+  snow:  {sky:["#f4f8fa","#e8eff2"],ground:"#fbfdfd",g2:"#eef4f5"},
+  sakura:{sky:["#fdf1f3","#f9e4e8"],ground:"#d8e9bb",g2:"#c5dda5"}
+};
 function sceneUnlocked(s){return sumAttempts()>=s.unlock;}
-function currentScene(){const id=(DB.rabbit&&DB.rabbit.scene)||"room";return SCENES.find(s=>s.id===id)||SCENES[0];}
+function currentScene(room){const key=room===1?"scene2":"scene";const def=room===1?"garden":"room";
+  const id=(DB.rabbit&&DB.rabbit[key])||def;return SCENES.find(s=>s.id===id)||SCENES[0];}
 function setScene(id){const s=SCENES.find(x=>x.id===id);if(!s)return;
   if(!sceneUnlocked(s)){toast(`あと ${s.unlock-sumAttempts()} 問で開くよ`);return;}
-  DB.rabbit=Object.assign({},DB.rabbit,{scene:id});saveDB();renderHome();}
+  const key=viewRoom===1?"scene2":"scene";
+  DB.rabbit=Object.assign({},DB.rabbit,{[key]:id});saveDB();renderHome();}
 function sceneSVG(sc,W,H){
-  const gid="sc"+(++__rbid);
-  let deco="";
+  const a=SCENE_ART[sc.id]||SCENE_ART.room,gid="sc"+(++__rbid);
+  const OL="#a89a86", SW=2.6;                      /* 細く、やわらかい輪郭 */
+  const R=x=>Math.round(x);let deco="";
   if(sc.id==="room")deco=`
-    <rect x="0" y="0" width="${W}" height="${H*0.62}" fill="#efe3cb"/>
-    ${Array.from({length:9},(_,i)=>`<line x1="0" y1="${H*0.62+i*7}" x2="${W}" y2="${H*0.62+i*7}" stroke="rgba(120,88,50,.10)" stroke-width="1"/>`).join("")}
-    <rect x="${W*0.05}" y="${H*0.10}" width="${W*0.20}" height="${H*0.30}" rx="4" fill="#e2d3b4" stroke="rgba(120,88,50,.25)"/>
-    <line x1="${W*0.05}" y1="${H*0.25}" x2="${W*0.25}" y2="${H*0.25}" stroke="rgba(120,88,50,.25)"/>
-    <rect x="${W*0.08}" y="${H*0.13}" width="7" height="${H*0.10}" fill="#c8542b" opacity=".7"/>
-    <rect x="${W*0.11}" y="${H*0.14}" width="6" height="${H*0.09}" fill="#2f5d50" opacity=".7"/>
-    <rect x="${W*0.72}" y="${H*0.08}" width="${W*0.22}" height="${H*0.26}" rx="4" fill="#dbe8ef" stroke="rgba(120,88,50,.3)" stroke-width="2"/>
-    <line x1="${W*0.83}" y1="${H*0.08}" x2="${W*0.83}" y2="${H*0.34}" stroke="rgba(120,88,50,.3)" stroke-width="2"/>`;
+    <rect x="0" y="0" width="${W}" height="${R(H*0.68)}" fill="#fdf9ee"/>
+    ${[0.16,0.38,0.62,0.84].map(x=>`<line x1="${R(W*x)}" y1="0" x2="${R(W*x)}" y2="${R(H*0.68)}" stroke="#f2ead6" stroke-width="5"/>`).join("")}
+    <g stroke="${OL}" stroke-width="${SW}" fill="#eef5f7"><rect x="${R(W*0.66)}" y="${R(H*0.12)}" width="${R(W*0.26)}" height="${R(H*0.30)}" rx="7"/></g>
+    <path d="M${R(W*0.79)} ${R(H*0.12)} v${R(H*0.30)} M${R(W*0.66)} ${R(H*0.27)} h${R(W*0.26)}" stroke="${OL}" stroke-width="${SW}"/>
+    <g stroke="${OL}" stroke-width="${SW}" fill="#f3e3c8"><rect x="${R(W*0.07)}" y="${R(H*0.20)}" width="${R(W*0.21)}" height="${R(H*0.24)}" rx="5"/></g>
+    <line x1="${R(W*0.07)}" y1="${R(H*0.33)}" x2="${R(W*0.28)}" y2="${R(H*0.33)}" stroke="${OL}" stroke-width="${SW}"/>
+    <rect x="${R(W*0.10)}" y="${R(H*0.23)}" width="7" height="${R(H*0.09)}" rx="2" fill="#dcae74" stroke="${OL}" stroke-width="2"/>
+    <rect x="${R(W*0.14)}" y="${R(H*0.24)}" width="7" height="${R(H*0.08)}" rx="2" fill="#b9cf9b" stroke="${OL}" stroke-width="2"/>
+    <ellipse cx="${R(W*0.5)}" cy="${R(H*0.91)}" rx="${R(W*0.33)}" ry="${R(H*0.075)}" fill="#f6e9d2" stroke="${OL}" stroke-width="${SW}"/>`;
   if(sc.id==="garden")deco=`
-    <circle cx="${W*0.85}" cy="${H*0.16}" r="16" fill="#f6e6a8" opacity=".85"/>
-    <ellipse cx="${W*0.16}" cy="${H*0.52}" rx="26" ry="22" fill="#6d9e6a"/>
-    <rect x="${W*0.15}" y="${H*0.55}" width="5" height="${H*0.16}" fill="#7a6247"/>
-    ${[0.35,0.55,0.68].map(x=>`<g><line x1="${W*x}" y1="${H*0.86}" x2="${W*x}" y2="${H*0.74}" stroke="#4e8a52" stroke-width="2"/><circle cx="${W*x}" cy="${H*0.72}" r="5" fill="${x>0.5?"#e79ab0":"#f0d27a"}"/><circle cx="${W*x}" cy="${H*0.72}" r="2" fill="#fff8e0"/></g>`).join("")}`;
+    <circle cx="${R(W*0.86)}" cy="${R(H*0.16)}" r="17" fill="#ffe6ac" stroke="${OL}" stroke-width="${SW}"/>
+    <g><rect x="${R(W*0.13)}" y="${R(H*0.46)}" width="7" height="${R(H*0.26)}" rx="3" fill="#d9c3a0" stroke="${OL}" stroke-width="${SW}"/><circle cx="${R(W*0.15)}" cy="${R(H*0.40)}" r="25" fill="#bcd9a0" stroke="${OL}" stroke-width="${SW}"/></g>
+    ${[0.38,0.54,0.70].map((x,i)=>`<g><line x1="${R(W*x)}" y1="${R(H*0.88)}" x2="${R(W*x)}" y2="${R(H*0.75)}" stroke="#9dbf85" stroke-width="2.6"/><circle cx="${R(W*x)}" cy="${R(H*0.72)}" r="7" fill="${["#f4c9c9","#ffd98a","#f4c9c9"][i]}" stroke="${OL}" stroke-width="2.4"/><circle cx="${R(W*x)}" cy="${R(H*0.72)}" r="2.4" fill="#fffdf5"/></g>`).join("")}
+    ${[0.28,0.46,0.64,0.82,1.0].map(x=>`<line x1="${R(W*x)}" y1="${R(H*0.80)}" x2="${R(W*x)}" y2="${R(H*0.96)}" stroke="#dcc9a4" stroke-width="4"/>`).join("")}`;
   if(sc.id==="field")deco=`
-    <circle cx="${W*0.82}" cy="${H*0.15}" r="15" fill="#fdf3c8"/>
-    <ellipse cx="${W*0.25}" cy="${H*0.18}" rx="30" ry="12" fill="#fff" opacity=".85"/>
-    <ellipse cx="${W*0.36}" cy="${H*0.15}" rx="20" ry="10" fill="#fff" opacity=".85"/>
-    <path d="M0 ${H*0.62} Q ${W*0.3} ${H*0.5} ${W*0.55} ${H*0.63} T ${W} ${H*0.6} V ${H} H0 Z" fill="#b6d6a0" opacity=".7"/>
-    ${Array.from({length:14},(_,i)=>{const x=(i*W/14)+6;return `<path d="M${x} ${H*0.9} q3 -12 6 -16" stroke="#6fae63" stroke-width="1.6" fill="none"/>`;}).join("")}`;
+    <circle cx="${R(W*0.84)}" cy="${R(H*0.16)}" r="16" fill="#ffe6ac" stroke="${OL}" stroke-width="${SW}"/>
+    <g fill="#fffdf7" stroke="${OL}" stroke-width="${SW}"><ellipse cx="${R(W*0.24)}" cy="${R(H*0.20)}" rx="28" ry="13"/><ellipse cx="${R(W*0.35)}" cy="${R(H*0.16)}" rx="18" ry="10"/></g>
+    <path d="M0 ${R(H*0.68)} q${R(W*0.28)} -${R(H*0.14)} ${R(W*0.56)} 0 q${R(W*0.24)} ${R(H*0.09)} ${R(W*0.44)} -${R(H*0.03)} V${H} H0 Z" fill="#dcecc2" stroke="${OL}" stroke-width="${SW}"/>`;
+  if(sc.id==="river")deco=`
+    <circle cx="${R(W*0.84)}" cy="${R(H*0.15)}" r="15" fill="#ffe6ac" stroke="${OL}" stroke-width="${SW}"/>
+    <path d="M0 ${R(H*0.63)} q${R(W*0.3)} ${R(H*0.06)} ${R(W*0.55)} 0 q${R(W*0.25)} -${R(H*0.06)} ${R(W*0.45)} ${R(H*0.02)} v${R(H*0.15)} H0 Z" fill="#cbe6e2" stroke="${OL}" stroke-width="${SW}"/>
+    ${[0.22,0.46,0.70].map(x=>`<path d="M${R(W*x)} ${R(H*0.70)} q9 -4 18 0" stroke="#fffdf7" stroke-width="2.6" fill="none" stroke-linecap="round"/>`).join("")}
+    ${[[0.16,0.85],[0.60,0.87],[0.86,0.83]].map(c=>`<ellipse cx="${R(W*c[0])}" cy="${R(H*c[1])}" rx="15" ry="9" fill="#e6e2d6" stroke="${OL}" stroke-width="${SW}"/>`).join("")}`;
   if(sc.id==="engawa")deco=`
-    <rect x="0" y="0" width="${W}" height="${H*0.5}" fill="#d9c9a6"/>
-    <rect x="0" y="${H*0.5}" width="${W}" height="${H*0.5}" fill="#c99a63"/>
-    ${Array.from({length:7},(_,i)=>`<line x1="0" y1="${H*0.5+i*9}" x2="${W}" y2="${H*0.5+i*9}" stroke="rgba(90,60,30,.18)" stroke-width="1.3"/>`).join("")}
-    <rect x="${W*0.06}" y="${H*0.05}" width="${W*0.36}" height="${H*0.42}" fill="#eee4cc" stroke="#8a7048" stroke-width="2"/>
-    <line x1="${W*0.24}" y1="${H*0.05}" x2="${W*0.24}" y2="${H*0.47}" stroke="#8a7048" stroke-width="2"/>
-    <line x1="${W*0.06}" y1="${H*0.26}" x2="${W*0.42}" y2="${H*0.26}" stroke="#8a7048" stroke-width="2"/>
-    <circle cx="${W*0.82}" cy="${H*0.18}" r="13" fill="#f3d9a0" opacity=".9"/>`;
+    <rect x="0" y="0" width="${W}" height="${R(H*0.54)}" fill="#faf2e0"/>
+    <g stroke="${OL}" stroke-width="${SW}" fill="#fefaf0"><rect x="${R(W*0.05)}" y="${R(H*0.08)}" width="${R(W*0.42)}" height="${R(H*0.42)}" rx="3"/><line x1="${R(W*0.26)}" y1="${R(H*0.08)}" x2="${R(W*0.26)}" y2="${R(H*0.50)}"/><line x1="${R(W*0.05)}" y1="${R(H*0.29)}" x2="${R(W*0.47)}" y2="${R(H*0.29)}"/></g>
+    <circle cx="${R(W*0.82)}" cy="${R(H*0.18)}" r="14" fill="#ffdfa8" stroke="${OL}" stroke-width="${SW}"/>
+    ${[0,1,2,3].map(i=>`<line x1="0" y1="${R(H*(0.60+i*0.09))}" x2="${W}" y2="${R(H*(0.60+i*0.09))}" stroke="#d8bd90" stroke-width="2.4" opacity=".7"/>`).join("")}`;
+  if(sc.id==="forest")deco=`
+    ${[[0.12,0.30,26],[0.30,0.24,21],[0.72,0.28,24],[0.90,0.22,19]].map(t=>`<g><rect x="${R(W*t[0]-4)}" y="${R(H*t[1])}" width="9" height="${R(H*0.5)}" rx="4" fill="#d9c3a0" stroke="${OL}" stroke-width="${SW}"/><circle cx="${R(W*t[0])}" cy="${R(H*t[1])}" r="${t[2]}" fill="#b6d69c" stroke="${OL}" stroke-width="${SW}"/></g>`).join("")}
+    ${[0.46,0.58].map(x=>`<circle cx="${R(W*x)}" cy="${R(H*0.87)}" r="8" fill="#dceccb" stroke="${OL}" stroke-width="2.4"/>`).join("")}`;
+  if(sc.id==="flower")deco=`
+    <circle cx="${R(W*0.85)}" cy="${R(H*0.15)}" r="16" fill="#ffe6ac" stroke="${OL}" stroke-width="${SW}"/>
+    ${[[0.12,0.72],[0.27,0.80],[0.43,0.74],[0.59,0.82],[0.73,0.75],[0.89,0.83]].map((c,i)=>`<g><line x1="${R(W*c[0])}" y1="${R(H*(c[1]+0.12))}" x2="${R(W*c[0])}" y2="${R(H*c[1])}" stroke="#9dbf85" stroke-width="2.6"/>${[0,72,144,216,288].map(ang=>`<ellipse cx="${R(W*c[0])}" cy="${R(H*c[1])}" rx="4" ry="8" fill="${["#f4c9c9","#ffd98a","#e8d4ee","#f4c9c9","#ffd98a","#e8d4ee"][i]}" stroke="${OL}" stroke-width="1.8" transform="rotate(${ang} ${R(W*c[0])} ${R(H*c[1])}) translate(0,-7)"/>`).join("")}<circle cx="${R(W*c[0])}" cy="${R(H*c[1])}" r="3.4" fill="#fffdf5" stroke="${OL}" stroke-width="1.8"/></g>`).join("")}`;
+  if(sc.id==="sunset")deco=`
+    <circle cx="${R(W*0.5)}" cy="${R(H*0.56)}" r="32" fill="#ffc48a" stroke="${OL}" stroke-width="${SW}"/>
+    ${[0.18,0.30].map((y,i)=>`<ellipse cx="${R(W*(0.20+i*0.52))}" cy="${R(H*y)}" rx="25" ry="9" fill="#fde3c4" stroke="${OL}" stroke-width="2.4"/>`).join("")}
+    ${[0,1,2].map(i=>`<path d="M${R(W*(0.62+i*0.09))} ${R(H*0.22)} q5 -5 10 0 q5 -5 10 0" stroke="${OL}" stroke-width="2.2" fill="none"/>`).join("")}`;
   if(sc.id==="night")deco=`
-    <circle cx="${W*0.8}" cy="${H*0.18}" r="14" fill="#f3edd6"/><circle cx="${W*0.755}" cy="${H*0.15}" r="13" fill="${sc.sky[0]}"/>
-    ${Array.from({length:16},(_,i)=>{const x=((i*37)%100)/100*W,y=((i*53)%55)/100*H;const r=(i%3===0)?1.5:1;return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="#fff" opacity="${0.5+(i%4)*0.12}"/>`;}).join("")}`;
+    <circle cx="${R(W*0.80)}" cy="${R(H*0.20)}" r="18" fill="#fdf6dd" stroke="${OL}" stroke-width="${SW}"/><circle cx="${R(W*0.75)}" cy="${R(H*0.17)}" r="15" fill="${a.sky[0]}"/>
+    ${Array.from({length:12},(_,i)=>{const x=((i*37)%100)/100*W,y=((i*53)%50)/100*H;return `<circle cx="${R(x)}" cy="${R(y)}" r="${i%3===0?2.4:1.6}" fill="#fffdf0" stroke="${OL}" stroke-width="1"/>`;}).join("")}`;
   if(sc.id==="snow")deco=`
-    ${Array.from({length:20},(_,i)=>{const x=((i*41)%100)/100*W,y=((i*67)%70)/100*H;return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${1.6+(i%3)*0.6}" fill="#fff" opacity=".8"/>`;}).join("")}
-    <path d="M${W*0.1} ${H*0.66} q18 -20 36 0 z" fill="#e7eef5"/>
-    <path d="M${W*0.62} ${H*0.62} q22 -26 44 0 z" fill="#e7eef5"/>`;
+    ${Array.from({length:14},(_,i)=>{const x=((i*41)%100)/100*W,y=((i*67)%64)/100*H;return `<circle cx="${R(x)}" cy="${R(y)}" r="${2+(i%3)*0.7}" fill="#fff" stroke="${OL}" stroke-width="1"/>`;}).join("")}
+    <g stroke="${OL}" stroke-width="${SW}" fill="#fffdfb"><circle cx="${R(W*0.20)}" cy="${R(H*0.70)}" r="16"/><circle cx="${R(W*0.20)}" cy="${R(H*0.51)}" r="11"/></g>
+    <circle cx="${R(W*0.17)}" cy="${R(H*0.50)}" r="1.6" fill="${OL}"/><circle cx="${R(W*0.23)}" cy="${R(H*0.50)}" r="1.6" fill="${OL}"/>`;
+  if(sc.id==="sakura")deco=`
+    ${[[0.10,0.26,26],[0.87,0.22,22]].map(t=>`<g><rect x="${R(W*t[0]-4)}" y="${R(H*t[1])}" width="9" height="${R(H*0.5)}" rx="4" fill="#d9c3a0" stroke="${OL}" stroke-width="${SW}"/><circle cx="${R(W*t[0])}" cy="${R(H*t[1])}" r="${t[2]}" fill="#f9dde3" stroke="${OL}" stroke-width="${SW}"/></g>`).join("")}
+    ${Array.from({length:9},(_,i)=>{const x=((i*43)%100)/100*W,y=((i*61)%68)/100*H;return `<ellipse cx="${R(x)}" cy="${R(y)}" rx="4.5" ry="3" fill="#f9dde3" stroke="${OL}" stroke-width="1.6" transform="rotate(${i*36} ${R(x)} ${R(y)})"/>`;}).join("")}`;
   return `<svg class="scenebg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sc.sky[0]}"/><stop offset="1" stop-color="${sc.sky[1]}"/></linearGradient></defs>
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a.sky[0]}"/><stop offset="1" stop-color="${a.sky[1]}"/></linearGradient></defs>
     <rect width="${W}" height="${H}" fill="url(#${gid})"/>
     ${deco}
-    <path d="M0 ${H*0.78} Q ${W*0.5} ${H*0.72} ${W} ${H*0.78} V ${H} H0 Z" fill="${sc.ground}"/>
-    <path d="M0 ${H*0.87} Q ${W*0.5} ${H*0.83} ${W} ${H*0.87} V ${H} H0 Z" fill="${sc.ground2}" opacity=".6"/>
+    <path d="M0 ${R(H*0.81)} q${R(W*0.5)} -${R(H*0.05)} ${W} 0 V${H} H0 Z" fill="${a.ground}" stroke="${OL}" stroke-width="${SW}"/>
+    <path d="M0 ${R(H*0.90)} q${R(W*0.5)} -${R(H*0.035)} ${W} 0 V${H} H0 Z" fill="${a.g2}" opacity=".7"/>
   </svg>`;}
 
 const GENTLE=[
@@ -656,8 +1368,9 @@ function playAct(act){
   ACTS.forEach(a=>rb.classList.remove("act-"+a));
   const carrot=st.querySelector(".carrot");
   if(carrot)carrot.style.display=(act==="eat")?"block":"none";
-  void rb.offsetWidth;                       // 再生をリセット
+  void rb.offsetWidth;
   rb.classList.add("act-"+act);
+  if(BUBBLE_ACT[act])sayBubble(BUBBLE_ACT[act],3200);
   const dur=act==="hop"?1500:(act==="eat"?2600:2000);
   clearTimeout(rb._t);rb._t=setTimeout(()=>{rb.classList.remove("act-"+act);if(carrot)carrot.style.display="none";},dur);
 }
@@ -666,19 +1379,36 @@ function autoAct(){
   const wait=7000+Math.random()*8000;
   __actTimer=setTimeout(()=>{
     if(document.getElementById("rabbit-stage")){
-      playAct(ACTS[Math.floor(Math.random()*ACTS.length)]);
+      if(Math.random()<0.45)sayBubble(BUBBLE_IDLE[Math.floor(Math.random()*BUBBLE_IDLE.length)]);
+      else playAct(ACTS[Math.floor(Math.random()*ACTS.length)]);
       autoAct();
     }
   },wait);
 }
-function pokeRabbit(){playAct(Math.random()<0.55?"hop":"sniff");autoAct();}
-function feedRabbit(){playAct("eat");toast("もぐもぐ…おいしいね");autoAct();}
+function pokeRabbit(){if(Math.random()<0.5){sayBubble(BUBBLE_IDLE[Math.floor(Math.random()*BUBBLE_IDLE.length)]);}else{playAct(Math.random()<0.55?"hop":"sniff");}autoAct();}
+function feedRabbit(){playAct("eat");autoAct();}
 
-/* ---------- 画面 ---------- */
+let viewRoom=0;
+function switchRoom(r){viewRoom=r;renderHome();}
+/* ---------- 吹き出し ---------- */
+function sayBubble(text,ms){
+  const el=document.getElementById("bubble");if(!el)return;
+  el.textContent=text;el.classList.add("show");
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),ms||4200);}
+const BUBBLE_IDLE=[
+  "きょうも おつかれさま。","むりしなくて だいじょうぶだよ。","ちょっと ひとやすみ しよ？",
+  "ここまで つづけてるの、えらいなあ。","あなたの ペースで いいんだよ。","そばに いるよ。",
+  "きのうの じぶんより すすんでるよ。","まちがえても だいじょうぶ。"
+];
+const BUBBLE_ACT={hop:"うれしくて はねちゃった。",eat:"いっしょに ひとやすみ しよ。",
+  wash:"きれいに してから がんばろ。",sniff:"なにか いいこと ありそう。"};
 const app=document.getElementById("app");
 let state={view:"home"};
-let setupCfg={mode:"ox",year:"すべて",cat:"すべて",mastery:new Set([0,1,2,3,4,5]),count:20,order:"random"};
+let setupCfg={mode:"gosen",year:"すべて",cat:"すべて",startFrom:null,rate:null,mastery:new Set([0,1,2,3,4,5]),count:1,order:"random"};
 let session=null,editModel=null;
+const SKEY="tkc_session_v1";
+function saveSession(){try{Store.set(SKEY,session?JSON.stringify({queue:session.queue,mode:session.mode,idx:session.idx,results:session.results,startTotal:session.startTotal,done:session.done}):"");}catch(e){}}
+async function loadSession(){try{const r=await Store.get(SKEY);if(!r)return;const o=JSON.parse(r);if(o&&Array.isArray(o.queue)){o.queue=o.queue.filter(k=>resolveKey(k));if(o.queue.length){if(o.idx>=o.queue.length)o.idx=o.queue.length-1;o.answered=false;o.chosen=null;session=o;}}}catch(e){}}
 let mg={search:"",year:"すべて",cat:"すべて",mastery:new Set([0,1,2,3,4,5])};
 function go(v,d){clearTimeout(__actTimer);state={view:v,...(d||{})};render();window.scrollTo(0,0);}
 function render(){const v=state.view;
@@ -696,32 +1426,35 @@ function render(){const v=state.view;
 
 function renderHome(){const s=stats();const total=sumAttempts();const si=stageIdx(total);const st=STAGES[si];const nx=STAGES[si+1];
   const prog=nx?Math.min(100,Math.round((total-st.min)/(nx.min-st.min)*100)):100;
-  const sc=rabbitScene(si);const scene=currentScene();
-  const carrot=`<svg class="carrot" width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 38 L13 16 q7 -4 14 0 z" fill="#e0742f"/><path d="M20 16 q-2 -8 -7 -10 q4 6 3 10 z" fill="#4f8a5f"/><path d="M21 16 q3 -8 8 -9 q-5 5 -5 9 z" fill="#5aa06f"/></svg>`;
-  const resume=(session&&sessionLeft()>0)?`<button class="btn primary" onclick="resumeQuiz()" style="margin-top:16px"><span class="btn-main"><span>演習を再開する</span><span class="btn-sub" style="color:rgba(255,255,255,.75)">のこり ${sessionLeft()} 問</span></span><span class="arw">▶</span></button>`:"";
+  const rooms=roomCount(total);if(viewRoom>=rooms)viewRoom=0;
+  const scene=currentScene(viewRoom);const mem=roomMembers(total,viewRoom);
+  const carrot=`<svg class="carrot" width="30" height="30" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 38 L12 15 q8 -5 16 0 z" fill="#f39a3e" stroke="#1b2740" stroke-width="3" stroke-linejoin="round"/><path d="M20 15 q-3 -9 -8 -11 q5 6 4 11 z" fill="#5ab97f" stroke="#1b2740" stroke-width="2.5" stroke-linejoin="round"/><path d="M21 15 q3 -9 9 -10 q-6 5 -6 10 z" fill="#5ab97f" stroke="#1b2740" stroke-width="2.5" stroke-linejoin="round"/></svg>`;
+  const compsHTML=mem.comps.map((ci,i)=>`<div>${rabbitSVG(Math.max(0,si-2-i),{size:40,flip:i%2===0,coat:ci+1,noGear:true,face:i%3===0?'tongue':'normal'})}</div>`).join("");
+  const resume=(session&&sessionLeft()>0)?`<button class="btn primary" onclick="resumeQuiz()" style="margin-top:16px"><span class="btn-main"><span>演習を再開する</span><span class="btn-sub" style="color:rgba(255,255,255,.8)">のこり ${sessionLeft()} 問</span></span><span class="arw">▶</span></button>`:"";
   app.innerHTML=`<div class="view">
     ${resume}
     <div class="rabbit">
+      ${rooms>1?`<div class="roomtab">${Array.from({length:rooms},(_,r)=>`<button class="rtab ${viewRoom===r?"on":""}" onclick="switchRoom(${r})">${r===0?"1つめのおへや":"2つめのおへや"}</button>`).join("")}</div>`:""}
       <div class="stage" id="rabbit-stage" onclick="pokeRabbit()">
-        ${sceneSVG(scene,320,170)}
+        ${sceneSVG(scene,320,190)}
+        <div class="bubble" id="bubble"></div>
         ${carrot}
-        ${sc.main}
-        ${sc.n?`<div class="comps">${sc.comps}</div>`:""}
-        <div class="tapcue">タップしてね</div>
+        ${mem.me?rabbitSVG(si,{size:86}):`<div class="norabbit">${rabbitSVG(Math.max(0,si-2),{size:78,coat:6,noGear:true})}</div>`}
+        ${compsHTML?`<div class="comps">${compsHTML}</div>`:""}
       </div>
       <div class="actbar">
-        <button class="actbtn" onclick="event.stopPropagation();playAct('hop')">跳ねる</button>
+        <button class="actbtn" onclick="event.stopPropagation();playAct('hop')">はねる</button>
         <button class="actbtn" onclick="event.stopPropagation();feedRabbit()">ごはん</button>
         <button class="actbtn" onclick="event.stopPropagation();playAct('wash')">毛づくろい</button>
         <button class="actbtn" onclick="event.stopPropagation();playAct('sniff')">くんくん</button>
       </div>
-      <div class="scenepick">${SCENES.map(s=>{const ok=sceneUnlocked(s);return `<button class="scenechip ${scene.id===s.id?"on":""} ${ok?"":"lock"}" onclick="setScene('${s.id}')">${esc(s.name)}${ok?"":`<span class="lk">🔒${s.unlock}</span>`}</button>`;}).join("")}</div>
+      <div class="scenepick">${SCENES.map(sn=>{const ok=sceneUnlocked(sn);return `<button class="scenechip ${scene.id===sn.id?"on":""} ${ok?"":"lock"}" onclick="setScene('${sn.id}')">${esc(sn.name)}${ok?"":`<span class="lk">🔒${sn.unlock}</span>`}</button>`;}).join("")}</div>
       <div class="info" style="margin-top:12px">
         <div class="nm" onclick="renameRabbit()">${esc(rabbitName())} <span class="pen">✎</span></div>
-        <div class="stg">${esc(st.name)}${sc.n?` ・ なかま ${sc.n}匹`:""}</div>
+        <div class="stg">Lv.${st.lv} ${esc(st.name)}${companionCount(total)?` ・ なかま ${companionCount(total)}匹`:""}</div>
         <div class="msg">${esc(rabbitMessage())}</div>
         <div class="lvbar"><span style="width:${prog}%"></span></div>
-        <div class="nx">${nx?`次の成長まで あと ${Math.max(0,nx.min-total)} 問`:"最大まで育ちました。おつかれさま。"}</div>
+        <div class="nx">${nx?`つぎの せいちょうまで あと ${Math.max(0,nx.min-total)} 問`:"さいごまで そだちました。おつかれさま。"}</div>
       </div>
     </div>
     <div class="yacho"><div class="yacho-label">Study Record / 学習記録</div>
@@ -734,7 +1467,7 @@ function renderHome(){const s=stats();const total=sumAttempts();const si=stageId
     </div>
     <div class="stack">
       <button class="btn primary" onclick="go('setup')"><span class="btn-main"><span>演習を始める</span><span class="btn-sub">○×か5択かを選んで解く</span></span><span class="arw">→</span></button>
-      <button class="btn" onclick="startWeak()" ${s.weak?"":"disabled"}><span class="btn-main"><span>苦手を集中演習</span><span class="btn-sub">${s.weak?"達成度1〜2の "+s.weak+" 肢":"まだありません"}</span></span><span class="arw">→</span></button>
+      <button class="btn" onclick="startWeak()"><span class="btn-main"><span>苦手を集中演習</span><span class="btn-sub">正答率や達成度でしぼって解く</span></span><span class="arw">→</span></button>
       <button class="btn" onclick="newQuestion()"><span class="btn-main"><span>＋ 問題を入力する</span><span class="btn-sub">問い＋肢を登録（保存で即追加）</span></span><span class="arw">→</span></button>
       <div class="row">
         <button class="btn ghost small" onclick="go('stats')"><span class="btn-main"><span>成績・達成度</span></span><span class="arw">→</span></button>
@@ -745,42 +1478,62 @@ function renderHome(){const s=stats();const total=sumAttempts();const si=stageId
     </div>
   </div>`;
   autoAct();}
-function startWeak(){setupCfg={mode:"ox",year:"すべて",cat:"すべて",mastery:new Set([1,2]),count:9999,order:"random"};beginQuiz();}
+function startWeak(){setupCfg.year="すべて";setupCfg.cat="すべて";setupCfg.startFrom=null;setupCfg.rate=70;setupCfg.mastery=new Set([0,1,2,3,4,5]);setupCfg.count=10;setupCfg.order="random";go("setup");}
 
 /* setup */
+function poolQnums(){const seen=new Set(),out=[];matchPool().forEach(k=>{const it=resolveKey(k);if(it&&it.q.qnum&&!seen.has(it.q.qnum)){seen.add(it.q.qnum);out.push(it.q.qnum);}});return out;}
 function renderSetup(){
-  const years=["すべて",...presentYears()],cats=["すべて",...presentCats()],counts=[10,20,50,9999],ml=l=>l===0?"未評価":l;
+  const years=["すべて",...presentYears()],cats=["すべて",...presentCats()],counts=[1,5,10,20],ml=l=>l===0?"未評価":l;
+  const qnums=poolQnums();
+  const rateOpts=[[null,"すべて"],[30,"30%以下"],[50,"50%以下"],[70,"70%以下"]];
   app.innerHTML=`<div class="view">
     <button class="backlink" onclick="go('home')">← ホーム</button>
     <div class="eyebrow">演習の設定</div>
     <div class="field-label">解き方</div>
-    <div class="seg"><button class="chip ${setupCfg.mode==="ox"?"on":""}" onclick="setupCfg.mode='ox';renderSetup()">○×（肢ごと）</button><button class="chip ${setupCfg.mode==="gosen"?"on":""}" onclick="setupCfg.mode='gosen';renderSetup()">5択（問ごと）</button></div>
-    <div class="field-label">年度</div><div class="seg">${years.map(y=>`<button class="chip sm ${setupCfg.year===y?"on":""}" onclick="setupCfg.year='${esc(y)}';renderSetup()">${esc(y)}</button>`).join("")}</div>
-    <div class="field-label">種別</div><div class="seg">${cats.map(c=>`<button class="chip sm ${setupCfg.cat===c?"on":""}" onclick="setupCfg.cat='${esc(c)}';renderSetup()">${esc(c)}</button>`).join("")}</div>
-    <div class="field-label">達成度(複数選択可)</div><div class="seg">${[0,1,2,3,4,5].map(l=>`<button class="chip sm ${setupCfg.mastery.has(l)?"on":""}" onclick="toggleSetupM(${l})">${ml(l)}</button>`).join("")}</div>
-    <div class="field-label">問題数</div><div class="seg">${counts.map(n=>`<button class="chip ${setupCfg.count===n?"on":""}" onclick="setupCfg.count=${n};renderSetup()">${n===9999?"全問":n+"問"}</button>`).join("")}</div>
-    <div class="field-label">出題順</div><div class="seg"><button class="chip ${setupCfg.order==="random"?"on":""}" onclick="setupCfg.order='random';renderSetup()">ランダム</button><button class="chip ${setupCfg.order==="order"?"on":""}" onclick="setupCfg.order='order';renderSetup()">登録順</button></div>
-    ${setupCfg.mode==="gosen"?'<div class="hint" style="margin-top:10px">※5択は「組合せ選択肢と正解番号」を入力した問だけが対象になります。</div>':""}
+    <div class="seg">
+      <button class="chip ${setupCfg.mode==="gosen"?"on":""}" onclick="setupCfg.mode='gosen';renderSetup()">5択（問ごと）</button>
+      <button class="chip ${setupCfg.mode==="ox"?"on":""}" onclick="setupCfg.mode='ox';renderSetup()">○×（肢ごと）</button>
+    </div>
+    <div class="field-label">年度</div><div class="seg">${years.map(y=>{const st=(y!=="すべて"&&setupCfg.year!==y)?`background:${yearTint(y)};color:${yearColor(y)};border-color:transparent`:"";return `<button class="chip sm ${setupCfg.year===y?"on":""}" style="${st}" onclick="setupCfg.year='${esc(y)}';setupCfg.startFrom=null;renderSetup()">${esc(y)}</button>`;}).join("")}</div>
+    <div class="field-label">種別</div><div class="seg">${cats.map(c=>`<button class="chip sm ${setupCfg.cat===c?"on":""}" onclick="setupCfg.cat='${esc(c)}';setupCfg.startFrom=null;renderSetup()">${esc(c)}</button>`).join("")}</div>
+    <div class="field-label">開始位置（登録順で、この問から始めます）</div>
+    <div class="seg"><button class="chip sm ${!setupCfg.startFrom?"on":""}" onclick="setupCfg.startFrom=null;renderSetup()">最初から</button>${qnums.map(q=>`<button class="chip sm ${setupCfg.startFrom===q?"on":""}" onclick="setupCfg.startFrom='${esc(q)}';renderSetup()">${esc(q)}</button>`).join("")}</div>
+    <div class="field-label">正答率でしぼる</div>
+    <div class="seg">${rateOpts.map(o=>`<button class="chip sm ${setupCfg.rate===o[0]?"on":""}" onclick="setupCfg.rate=${o[0]===null?"null":o[0]};renderSetup()">${o[1]}</button>`).join("")}</div>
+    <div class="field-label">達成度（複数選択可）</div><div class="seg">${[0,1,2,3,4,5].map(l=>`<button class="chip sm ${setupCfg.mastery.has(l)?"on":""}" onclick="toggleSetupM(${l})">${ml(l)}</button>`).join("")}</div>
+    <div class="field-label">問題数</div><div class="seg">${counts.map(n=>`<button class="chip ${setupCfg.count===n?"on":""}" onclick="setupCfg.count=${n};renderSetup()">${n}問</button>`).join("")}</div>
+    <div class="field-label">出題順</div><div class="seg"><button class="chip ${(setupCfg.order==="random"&&!setupCfg.startFrom)?"on":""}" onclick="setupCfg.order='random';renderSetup()" ${setupCfg.startFrom?"disabled":""}>ランダム</button><button class="chip ${(setupCfg.order==="order"||setupCfg.startFrom)?"on":""}" onclick="setupCfg.order='order';renderSetup()">登録順</button></div>
+    ${setupCfg.mode==="gosen"?'<div class="hint" style="margin-top:10px">※5択は「組合せ選択肢と正解番号」を入れた問だけが対象です。○×だけの問は○×モードで解けます。</div>':""}
     <div class="stack" style="margin-top:20px"><button class="btn primary" onclick="beginQuiz()"><span>始める（対象 ${matchPool().length} 問）</span><span class="arw">→</span></button></div>
   </div>`;}
 function toggleSetupM(l){if(setupCfg.mastery.has(l))setupCfg.mastery.delete(l);else setupCfg.mastery.add(l);if(!setupCfg.mastery.size)setupCfg.mastery.add(l);renderSetup();}
 function gosenOK(q){return q.type==="choice"||(q.type==="set"&&(q.combos||[]).length>=2&&Number.isInteger(q.comboCorrect)&&q.comboCorrect<q.combos.length);}
+function rateOK(key){if(setupCfg.rate==null)return true;const h=DB.history[key];if(!h||!h.attempts)return false;return (h.correct/h.attempts*100)<=setupCfg.rate;}
 function matchPool(){
   if(setupCfg.mode==="gosen"){
     let p=DB.questions.filter(gosenOK);
     if(setupCfg.year!=="すべて")p=p.filter(q=>q.year===setupCfg.year);
     if(setupCfg.cat!=="すべて")p=p.filter(q=>q.category===setupCfg.cat);
     p=p.filter(q=>setupCfg.mastery.has(q.mastery||0));
+    p=p.filter(q=>rateOK(q.id));
     return p.map(q=>q.id);
   }
   let u=units().filter(x=>x.q.type!=="choice"&&(x.b!==null||x.q.type==="ox"));
   if(setupCfg.year!=="すべて")u=u.filter(x=>x.q.year===setupCfg.year);
   if(setupCfg.cat!=="すべて")u=u.filter(x=>x.q.category===setupCfg.cat);
   u=u.filter(x=>setupCfg.mastery.has(x.mastery));
+  u=u.filter(x=>rateOK(x.key));
   return u.map(x=>x.key);}
 function beginQuiz(){let pool=matchPool();if(!pool.length){toast("条件に合う問題がありません");return;}
-  if(setupCfg.order==="random")pool=shuffle(pool);pool=pool.slice(0,setupCfg.count);
-  session={queue:pool,mode:setupCfg.mode,idx:0,results:[],answered:false,chosen:null,startTotal:sumAttempts()};go("quiz");}
+  if(setupCfg.startFrom){const idx=pool.findIndex(k=>{const it=resolveKey(k);return it&&it.q.qnum===setupCfg.startFrom;});if(idx>0)pool=pool.slice(idx);}
+  else if(setupCfg.order==="random")pool=shuffle(pool);
+  pool=pool.slice(0,setupCfg.count);
+  session={queue:pool,mode:setupCfg.mode,idx:0,results:[],answered:false,chosen:null,startTotal:sumAttempts()};saveSession();go("quiz");}
+function solveOne(id,ev){if(ev&&ev.stopPropagation)ev.stopPropagation();const q=DB.questions.find(x=>x.id===id);if(!q)return;
+  let queue;const bk=(q.branches||[]).map((b,i)=>({b,i})).filter(x=>x.b.truth===true||x.b.truth===false).map(x=>id+"#"+x.i);
+  if(setupCfg.mode==="ox"){queue=bk.length?bk:[id];}
+  else{queue=gosenOK(q)?[id]:(bk.length?bk:[id]);}
+  session={queue,mode:setupCfg.mode,idx:0,results:[],answered:false,chosen:null,startTotal:sumAttempts()};saveSession();go("quiz");}
 
 /* quiz */
 function itemLabel(it){const q=it.q;let s=q.year||"—";if(q.qnum)s+=" "+q.qnum;if(it.b!==null&&q.type==="set")s+=" 肢"+(q.branches[it.b].label||"");else if(q.sub)s+=" "+q.sub;return s;}
@@ -804,7 +1557,7 @@ function renderQuiz(){const key=session.queue[session.idx];const it=resolveKey(k
       <div class="ox-choices"><button class="${oC}" ${answered?"disabled":""} onclick="answerOx(true)"><span class="mk">○</span><span class="tx">正しい</span></button><button class="${xC}" ${answered?"disabled":""} onclick="answerOx(false)"><span class="mk">✕</span><span class="tx">誤り</span></button></div>`;
   }else if(q.type==="set"){ // 5択
     const ch=session.chosen;
-    const brs=(q.branches||[]).map(b=>`<div class="branchline"><span class="bl">${esc(b.label)}</span><span>${esc(b.text)}</span>${answered&&(b.truth===true||b.truth===false)?`<span class="mkr ${b.truth?"o":"x"}">${b.truth?"○":"✕"}</span>`:""}</div>`).join("");
+    const brs=(q.branches||[]).map(b=>`<div class="branchline"><span class="bl">${esc(b.label)}</span><span class="tx">${esc(b.text)}</span>${answered&&(b.truth===true||b.truth===false)?`<span class="mkr ${b.truth?"o":"x"}">${b.truth?"○":"✕"}</span>`:""}</div>`).join("");
     body=`${q.stem?`<div class="stem">${esc(q.stem)}</div>`:""}${brs}
       <div class="choices">${q.combos.map((c,i)=>{let cls="choice";if(answered){if(i===q.comboCorrect)cls+=" correct";else if(i===ch)cls+=" wrong";else cls+=" dim";}return `<button class="${cls}" ${answered?"disabled":""} onclick="answerCh(${i})"><span class="no">${i+1}</span><span>${esc(c)}</span></button>`;}).join("")}</div>`;
   }else{ // legacy choice
@@ -818,7 +1571,7 @@ function renderQuiz(){const key=session.queue[session.idx];const it=resolveKey(k
       <button class="qbtn" onclick="pauseTo('manage')">一覧を見る</button>
       <button class="qbtn danger" onclick="quitQuiz()">やめる</button>
     </div>
-    <div class="qmeta"><span class="tagline"><span class="qcat">${esc(q.category||"未分類")}</span><span class="qyear">${esc(itemLabel(it))}</span></span><span>${n} / ${total}</span></div>
+    <div class="qmeta"><span class="tagline"><span class="qcat">${esc(q.category||"未分類")}</span><span class="qyear" style="background:${yearTint(q.year)};color:${yearColor(q.year)};border-color:transparent">${esc(itemLabel(it))}</span></span><span>${n} / ${total}</span></div>
     <div class="prog"><span style="width:${Math.round(n/total*100)}%"></span></div>
     ${body}
     ${answered?feedback(it):""}
@@ -832,44 +1585,50 @@ function itemRecordHTML(key){const h=DB.history[key];
     <span class="rv"><b class="${cls}">${pct}%</b> ・ ${h.attempts}回中 ${h.correct}回 正解</span>
     <span class="rmini"><span class="rmini-f ${cls}" style="width:${pct}%"></span></span>
   </div>`;}
-function feedback(it){const q=it.q;let ok,ansTxt,expl="";
+function feedbackExplHTML(it){const q=it.q;
+  if(it.b!==null&&q.type==="set"){const br=q.branches[it.b];return br.expl?`<div class="expl"><span class="h">解説</span>${esc(br.expl)}</div>`:"";}
+  if(q.type==="ox")return q.explanation?`<div class="expl"><span class="h">解説</span>${esc(q.explanation)}</div>`:"";
+  if(q.type==="set"){const items=(q.branches||[]).map(b=>{const mk=(b.truth===true||b.truth===false)?`<span class="emk ${b.truth?"o":"x"}">${b.truth?"○":"✕"}</span>`:"";
+      return `<div class="expl-b"><div class="expl-bh">${mk}<span class="expl-bl">${esc(b.label)}</span><span class="expl-bt">${esc(b.text)}</span></div>${b.expl?`<div class="expl-be">${esc(b.expl)}</div>`:""}</div>`;}).join("");
+    return items?`<div class="expl"><span class="h">各肢の解説</span>${items}</div>`:"";}
+  return q.explanation?`<div class="expl"><span class="h">解説</span>${esc(q.explanation)}</div>`:"";}
+function feedback(it){const q=it.q;let ok,ansTxt;
   const key=session.queue[session.idx];
-  if(it.b!==null&&q.type==="set"){const br=q.branches[it.b];ok=session.chosen===br.truth;ansTxt=br.truth?"○（正しい）":"✕（誤り）";expl=br.expl||"";}
-  else if(q.type==="ox"){ok=session.chosen===q.answer;ansTxt=q.answer?"○（正しい）":"✕（誤り）";expl=q.explanation||"";}
-  else if(q.type==="set"){ok=session.chosen===q.comboCorrect;ansTxt="正答 "+(q.comboCorrect+1)+"（"+esc(q.combos[q.comboCorrect])+"）";
-    expl=(q.branches||[]).filter(b=>b.expl).map(b=>b.label+"　"+b.expl).join("\n");}
-  else{ok=session.chosen===q.correct;ansTxt="正答 "+(q.correct+1);expl=q.explanation||"";}
+  if(it.b!==null&&q.type==="set"){const br=q.branches[it.b];ok=session.chosen===br.truth;ansTxt=br.truth?"○（正しい）":"✕（誤り）";}
+  else if(q.type==="ox"){ok=session.chosen===q.answer;ansTxt=q.answer?"○（正しい）":"✕（誤り）";}
+  else if(q.type==="set"){ok=session.chosen===q.comboCorrect;ansTxt="正答 "+(q.comboCorrect+1)+"（"+esc(q.combos[q.comboCorrect])+"）";}
+  else{ok=session.chosen===q.correct;ansTxt="正答 "+(q.correct+1);}
   return `<div class="verdict ${ok?"ok":"ng"}"><b>${ok?"正解":"不正解"}</b>　${ansTxt}</div>
-    ${expl?`<div class="expl"><span class="h">解説</span>${esc(expl)}</div>`:""}
+    ${feedbackExplHTML(it)}
     ${itemRecordHTML(key)}
     <div class="mrate"><div class="lab">この${it.b!==null?"肢":"問題"}の達成度をマーク</div>${masteryControl(itemMastery(it),"onQuizMastery")}</div>
     <div class="stack" style="margin-top:16px"><button class="btn primary" onclick="nextQ()"><span>${session.idx+1<session.queue.length?"次の問題":"結果を見る"}</span><span class="arw">→</span></button></div>`;}
 function onQuizMastery(l){const it=resolveKey(session.queue[session.idx]);setItemMastery(it,l);renderQuiz();}
 function answerOx(b){if(session.answered)return;const key=session.queue[session.idx];const it=resolveKey(key);
   const truth=it.b!==null?it.q.branches[it.b].truth:it.q.answer;
-  session.answered=true;session.chosen=b;const ok=b===truth;session.results.push({key,ok});record(key,ok);renderQuiz();}
+  session.answered=true;session.chosen=b;const ok=b===truth;session.results.push({key,ok});record(key,ok);saveSession();renderQuiz();}
 function answerCh(i){if(session.answered)return;const key=session.queue[session.idx];const it=resolveKey(key);
   const corr=it.q.type==="set"?it.q.comboCorrect:it.q.correct;
   session.answered=true;session.chosen=i;const ok=i===corr;session.results.push({key,ok});record(key,ok);renderQuiz();}
 function pauseTo(v){go(v);}
-function quitQuiz(){if(session&&session.results.length){askConfirm("演習を終了しますか？","結果画面は表示されませんが、解答の記録は残ります。","終了する",()=>{session=null;go("home");});return;}
-  session=null;go("home");}
+function quitQuiz(){if(session&&session.results.length){askConfirm("演習を終了しますか？","結果画面は表示されませんが、解答の記録は残ります。","終了する",()=>{session=null;saveSession();go("home");});return;}
+  session=null;saveSession();go("home");}
 function resumeQuiz(){if(!session)return;
-  session.queue=session.queue.filter(k=>resolveKey(k));
+  session.queue=session.queue.filter(k=>resolveKey(k));saveSession();
   if(!session.queue.length){session=null;toast("再開できる問題がありません");renderHome();return;}
   if(session.idx>=session.queue.length){session.idx=session.queue.length-1;}
   go("quiz");}
 function sessionLeft(){if(!session||session.done)return 0;return Math.max(0,session.queue.length-session.idx);}
-function nextQ(){session.idx++;session.answered=false;session.chosen=null;if(session.idx>=session.queue.length)finishQuiz();else{renderQuiz();window.scrollTo(0,0);}}
-function finishQuiz(){session.done=true;go("result");}
+function nextQ(){session.idx++;session.answered=false;session.chosen=null;saveSession();if(session.idx>=session.queue.length)finishQuiz();else{renderQuiz();window.scrollTo(0,0);}}
+function finishQuiz(){session.done=true;saveSession();go("result");}
 
 function wrongPreview(key){const it=resolveKey(key);if(!it)return "";const q=it.q;
   const body=it.b!==null&&q.type==="set"?q.branches[it.b].text:(q.type==="ox"?q.statement:(q.type==="set"?(q.stem||""):(q.question||"")));
   return `<div class="qitem" onclick="go('edit',{id:'${q.id}',from:'result'})"><div class="top"><span class="cat">${esc(q.category||"未分類")}</span><span class="yr">${esc(itemLabel(it))} ${masteryBadge(itemMastery(it))}</span></div><div class="body">${esc(body)}</div></div>`;}
 function renderResult(){const r=session.results,correct=r.filter(x=>x.ok).length,total=r.length,wrongKeys=r.filter(x=>!x.ok).map(x=>x.key);
   const after=sumAttempts(),before=session.startTotal||0,li=stageIdx(after),lb=stageIdx(before);
-  const levelup=li>lb?`<div class="levelup"><div>${rabbitSVG(li,{size:64})}</div><div class="t">たくさん解いたね。<br>うさぎが育って <b>「${esc(STAGES[li].name)}」</b> になったよ。</div></div>`:"";
-  const gentle=`<div class="rabbit" style="margin-top:14px"><div class="top"><div class="scene">${rabbitSVG(li,{size:74})}</div><div class="info"><div class="nm" style="cursor:default">${esc(rabbitName())}</div><div class="msg">${esc(correct===total?"ぜんぶ正解、すごい!この調子だよ。":rabbitMessage())}</div></div></div></div>`;
+  const levelup=li>lb?`<div class="levelup"><div>${rabbitSVG(li,{size:48})}</div><div class="t">たくさん解いたね。<br>うさぎが育って <b>「${esc(STAGES[li].name)}」</b> になったよ。</div></div>`:"";
+  const gentle=`<div class="rabbit" style="margin-top:14px"><div class="top"><div class="scene">${rabbitSVG(li,{size:54,face:correct===total?"happy":"normal"})}</div><div class="info"><div class="nm" style="cursor:default">${esc(rabbitName())}</div><div class="msg">${esc(correct===total?"ぜんぶ正解、すごい!この調子だよ。":rabbitMessage())}</div></div></div></div>`;
   app.innerHTML=`<div class="view">
     <div class="eyebrow">演習おわり</div>
     <div class="score-big">${correct}<span style="font-size:24px;color:var(--muted)">/${total}</span></div>
@@ -880,7 +1639,7 @@ function renderResult(){const r=session.results,correct=r.filter(x=>x.ok).length
       ${wrongKeys.length?`<button class="btn" onclick='retryWrong(${JSON.stringify(wrongKeys)})'><span>間違いだけ解き直す</span><span class="arw">→</span></button>`:""}
       <button class="btn primary" onclick="go('home')"><span>ホームに戻る</span><span class="arw">→</span></button>
     </div></div>`;}
-function retryWrong(keys){session={queue:shuffle(keys),mode:session.mode,idx:0,results:[],answered:false,chosen:null,startTotal:sumAttempts()};go("quiz");}
+function retryWrong(keys){session={queue:shuffle(keys),mode:session.mode,idx:0,results:[],answered:false,chosen:null,startTotal:sumAttempts()};saveSession();go("quiz");}
 
 /* manage */
 function qSearchText(q){let s=(q.year||"")+(q.qnum||"")+(q.category||"");
@@ -921,7 +1680,8 @@ function renderQList(list){if(!list.length)return `<div class="empty"><div class
     if(q.type==="set"){const n=(q.branches||[]).length;tag=`肢${n}${gosenOK(q)?"・5択可":""}`;body=q.stem||(q.branches[0]?q.branches[0].text:"");}
     else if(q.type==="ox"){tag=q.answer?"○":"✕";body=q.statement;}
     else{tag="5択";body=q.question;}
-    return `<div class="qitem" onclick="go('edit',{id:'${q.id}',from:'manage'})"><div class="top"><span class="cat">${esc(q.category||"未分類")}</span><span class="yr">${esc(q.year||"—")}${q.qnum?" "+esc(q.qnum):""}　${esc(tag)}　${qStatHTML(q)}</span></div><div class="body">${esc(body)}</div></div>`;}).join("");}
+    const yc=yearColor(q.year),yt=yearTint(q.year);
+    return `<div class="qitem" style="border-left-color:${yc}" onclick="go('edit',{id:'${q.id}',from:'manage'})"><div class="top"><span class="cat">${esc(q.category||"未分類")}</span><span class="yr"><span class="ybadge" style="background:${yt};color:${yc}">${esc(q.year||"—")}</span>${q.qnum?" "+esc(q.qnum):""}　${esc(tag)}　${qStatHTML(q)}</span></div><div class="body">${esc(body)}</div><div class="qi-act"><button class="solvebtn" onclick="solveOne('${q.id}',event)">▶ この問題を解く</button></div></div>`;}).join("");}
 
 /* edit(set) */
 function newQuestion(){const st=(editModel&&editModel.labelStyle)||"kana";
@@ -959,7 +1719,7 @@ function renderEdit(){if(state.id&&(!editModel||editModel.id!==state.id))loadEdi
         ${m.branches.length>1?`<button class="rm" onclick="ed_rmBranch(${i})">×</button>`:""}
       </div>
       <textarea rows="2" placeholder="肢の記述" oninput="editModel.branches[${i}].text=this.value">${esc(b.text)}</textarea>
-      <input type="text" placeholder="この肢の解説（任意・自分の言葉で）" value="${esc(b.expl)}" oninput="editModel.branches[${i}].expl=this.value">
+      <textarea rows="2" placeholder="この肢の解説（任意・自分の言葉で。改行できます）" oninput="editModel.branches[${i}].expl=this.value">${esc(b.expl)}</textarea>
     </div>`;}).join("");
   app.innerHTML=`<div class="view">
     <button class="backlink" onclick="${back}">← ${state.from==="result"?"結果":"一覧"}へ</button>
@@ -1086,21 +1846,30 @@ function renderCalendar(){
   const todK=dateKey(new Date());
   let monthTotal=0,maxC=1;for(let d=1;d<=days;d++){const c=DB.log[dateKey(new Date(y,m,d))]||0;monthTotal+=c;maxC=Math.max(maxC,c);}
   const grand=Object.values(DB.log).reduce((a,b)=>a+b,0);
+  const exams=examList(),byDate={};exams.forEach(e=>{(byDate[e.date]=byDate[e.date]||[]).push(e);});
+  const monthPrefix=y+"-"+String(m+1).padStart(2,"0");
+  const monthExams=exams.filter(e=>e.date.startsWith(monthPrefix));
   const dows=["日","月","火","水","木","金","土"];
   let cells="";for(let i=0;i<startDow;i++)cells+=`<div class="cal-cell empty"></div>`;
-  for(let d=1;d<=days;d++){const k=dateKey(new Date(y,m,d));const c=DB.log[k]||0;
-    const alpha=c?(0.25+0.75*Math.min(c/maxC,1)).toFixed(2):0;
-    cells+=`<div class="cal-cell ${k===todK?"today":""}" style="${c?`background:rgba(47,93,80,${alpha})`:""}"><span class="d" style="${c?'color:rgba(255,255,255,.85)':''}">${d}</span>${c?`<span class="c">${c}</span>`:""}</div>`;}
+  for(let d=1;d<=days;d++){const k=dateKey(new Date(y,m,d));const c=DB.log[k]||0;const ex=byDate[k];
+    const past=k<todK;
+    const style=ex?`background:${past?"#efe3c8":"var(--accent)"}`:(c?`background:rgba(85,107,47,${(0.25+0.75*Math.min(c/maxC,1)).toFixed(2)})`:"");
+    const light=ex?!past:!!c;
+    cells+=`<div class="cal-cell ${k===todK?"today":""} ${ex?"exam":""}" style="${style}"><span class="d" style="${light?'color:rgba(255,255,255,.9)':''}">${d}</span>${ex?`<span class="flag">⚑</span>`:(c?`<span class="c">${c}</span>`:"")}</div>`;}
+  const examRows=monthExams.length?monthExams.map(e=>{const past=e.date<todK;const dd=+e.date.slice(8,10);
+      return `<div class="exrow ${past?"past":""}"><span class="exflag">⚑</span><span class="exd">${m+1}月${dd}日</span><span class="exl">${esc(e.label)}</span><button class="exdel" onclick="removeExam('${e.id}')">×</button></div>`;}).join("")
+    :`<div class="exrow none">この月の試験日は登録されていません</div>`;
   app.innerHTML=`<div class="view">
     <button class="backlink" onclick="go('home')">← ホーム</button>
     <div class="eyebrow">学習カレンダー</div>
+    <div class="exbox">${examRows}<button class="exadd" onclick="addExam()">＋ 試験日を登録</button></div>
     <div class="cal-head"><button class="cal-nav" onclick="calMove(-1)">‹</button><div class="mo">${y}年 ${m+1}月</div><button class="cal-nav" onclick="calMove(1)">›</button></div>
     <div class="cal-grid">${dows.map(d=>`<div class="cal-dow">${d}</div>`).join("")}${cells}</div>
     <div class="bigwrap" style="margin-top:16px">
       <div class="bigcard"><div class="p">${monthTotal}</div><div class="l">今月の解答数</div></div>
       <div class="bigcard"><div class="p">${grand}</div><div class="l">累計の解答数</div></div>
     </div>
-    <div class="hint" style="margin-top:12px">色が濃い日ほどたくさん解いた日です。</div>
+    <div class="hint" style="margin-top:12px">色が濃い日ほどたくさん解いた日です。⚑ は試験日。</div>
   </div>`;}
 function calMove(delta){let m=calView.m+delta,y=calView.y;if(m<0){m=11;y--;}if(m>11){m=0;y++;}calView={y,m};renderCalendar();}
 
@@ -1151,15 +1920,15 @@ function wipe(){askConfirm("すべての問題と記録を消去しますか？"
     firebase.auth().onAuthStateChanged(async u=>{
       Cloud.user=u;setSyncBadge();
       if(u){
-        DB={questions:[],history:{},log:{},rabbit:{name:"うーちゃん"}};
+        DB={questions:[],history:{},log:{},rabbit:{name:"うーちゃん"},exams:[]};
         await cloudAttach();
-        session=null;state={view:"home"};render();
+        session=null;await loadSession();state={view:"home"};render();
       }else{
         session=null;state={view:"home"};renderLogin();
       }
     });
   }else{
-    await loadDB();render();
+    await loadDB();await loadSession();render();
   }
 })();
 </script>
