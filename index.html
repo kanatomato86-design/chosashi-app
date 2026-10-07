@@ -227,6 +227,20 @@
   .ch-x .today i{border-color:var(--brand);}
   .ch-avg{text-align:right;font-size:13px;color:var(--title);margin-top:10px;}
   .ch-diff{text-align:right;font-size:12px;font-weight:700;color:var(--ink);margin-top:3px;}
+  .chip:disabled{opacity:.4;cursor:default;}
+  .catgrp-l{font-size:11.5px;font-weight:700;color:var(--title);margin:10px 0 0;}
+  .catgroup-h{font-size:14px;font-weight:800;color:var(--ink);margin:20px 0 4px;}
+  .catrow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:var(--gothic);background:#f3f2f0;border:none;border-radius:16px;padding:14px 12px 13px 16px;margin-top:8px;cursor:pointer;color:var(--ink);-webkit-tap-highlight-color:transparent;}
+  .catrow:active:not(:disabled){transform:scale(.99);}
+  .catrow:disabled{cursor:default;}
+  .catrow .cr-main{flex:1;min-width:0;}
+  .catrow .cr-name{font-size:15px;font-weight:600;}
+  .catrow .cr-track{height:8px;border-radius:4px;background:#fff;overflow:hidden;margin-top:9px;}
+  .catrow .cr-track>span{display:block;height:100%;border-radius:4px;background:var(--brand);}
+  .catrow .cr-sub{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:5px;}
+  .catrow .cr-n{background:#fff;border-radius:999px;min-width:22px;padding:4px 11px;text-align:center;font-size:13px;font-weight:700;color:var(--title);}
+  .catrow .cr-arw{font-size:24px;line-height:1;color:var(--title);padding:0 2px 3px;}
+  .catrow:disabled .cr-arw{opacity:.25;}
   .bigwrap{display:flex;gap:10px;margin-top:14px;}
   .bigcard{flex:1;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px;text-align:center;box-shadow:var(--shadow);}
   .bigcard .p{font-family:var(--gothic);font-size:34px;font-weight:800;color:var(--brand-strong);line-height:1;}
@@ -498,8 +512,8 @@ const KEY="tkc_ox_v1";
 
 const CAT_GROUPS=[
   {group:"民法",items:["総則","物権","相続"]},
-  {group:"不動産登記法",items:["総論","土地","建物","区分建物","表題部所有者"]},
-  {group:"調査士法",items:["調査士法"]}
+  {group:"不動産登記法",items:["総論","表題部所有者","土地","建物","区分建物"]},
+  {group:"土地家屋調査士法",items:["調査士法"]}
 ];
 const ALL_CATS=CAT_GROUPS.flatMap(g=>g.items);
 function buildYears(){
@@ -996,7 +1010,8 @@ function renderSetup(){
       <button class="chip ${setupCfg.mode==="ox"?"on":""}" onclick="setupCfg.mode='ox';renderSetup()">○×（肢ごと）</button>
     </div>
     <div class="field-label">年度</div><div class="seg">${years.map(y=>{const st=(y!=="すべて"&&setupCfg.year!==y)?`background:${yearTint(y)};color:${yearColor(y)};border-color:transparent`:"";return `<button class="chip sm ${setupCfg.year===y?"on":""}" style="${st}" onclick="setupCfg.year='${esc(y)}';setupCfg.startFrom=null;renderSetup()">${esc(y)}</button>`;}).join("")}</div>
-    <div class="field-label">種別</div><div class="seg">${cats.map(c=>`<button class="chip sm ${setupCfg.cat===c?"on":""}" onclick="setupCfg.cat='${esc(c)}';setupCfg.startFrom=null;renderSetup()">${esc(c)}</button>`).join("")}</div>
+    <div class="field-label">種別</div><div class="seg"><button class="chip sm ${setupCfg.cat==="すべて"?"on":""}" onclick="setupCfg.cat='すべて';setupCfg.startFrom=null;renderSetup()">すべて</button></div>
+    ${catGroupsWith(cats.filter(c=>c!=="すべて"&&!ALL_CATS.includes(c))).map(g=>`<div class="catgrp-l">${esc(g.group)}</div><div class="seg" style="margin-top:5px">${g.items.map(c=>`<button class="chip sm ${setupCfg.cat===c?"on":""}" ${cats.includes(c)?"":"disabled"} onclick="setupCfg.cat='${esc(c)}';setupCfg.startFrom=null;renderSetup()">${esc(c)}</button>`).join("")}</div>`).join("")}
     <div class="field-label">開始位置（登録順で、この問から始めます）</div>
     <div class="seg"><button class="chip sm ${!setupCfg.startFrom?"on":""}" onclick="setupCfg.startFrom=null;renderSetup()">最初から</button>${qnums.map(q=>`<button class="chip sm ${setupCfg.startFrom===q?"on":""}" onclick="setupCfg.startFrom='${esc(q)}';renderSetup()">${esc(q)}</button>`).join("")}</div>
     <div class="field-label">正答率でしぼる</div>
@@ -1345,6 +1360,11 @@ function weekChartHTML(){const W="日月火水木金土",wd=weekData(statsWeek),
     <div class="ch-diff">${diff>0?"↑":diff<0?"↓":"→"} 前週比 ${diff>0?"+":""}${diff}回</div></div>`;}
 function masteryChartHTML(us){const n=[0,0,0,0,0,0];us.forEach(u=>{n[u.mastery]=(n[u.mastery]||0)+1;});
   return `<div class="chartcard"><div class="ch-title">達成度ごとの肢の数</div>${barChart(n.map((v,i)=>({label:i===0?"未":String(i),v,tip:`${i===0?"未評価":"達成度"+i} ${v}肢`})))}</div>`;}
+function startCat(c){setupCfg.year="すべて";setupCfg.cat=c;setupCfg.startFrom=null;setupCfg.rate=null;setupCfg.mastery=new Set([0,1,2,3,4,5]);go("setup");}
+function catRow(c,g){g=g||{count:0,msum:0,solved:0};const mp=g.count?Math.round(g.msum/(g.count*5)*100):0;
+  return `<button class="catrow" ${g.count?`onclick="startCat('${esc(c)}')"`:"disabled"}><div class="cr-main"><div class="cr-name">${esc(c)}</div><div class="cr-track"><span style="width:${mp}%"></span></div><div class="cr-sub">達成度 ${mp}%・演習済み ${g.solved}/${g.count}肢</div></div><span class="cr-n">${g.count}</span><span class="cr-arw">›</span></button>`;}
+function catGroupsWith(extra){return CAT_GROUPS.concat(extra.length?[{group:"その他",items:extra}]:[]);}
+function catListHTML(byCat){return catGroupsWith(Object.keys(byCat).filter(k=>!ALL_CATS.includes(k))).map(g=>`<div class="catgroup-h">${esc(g.group)}</div>`+g.items.map(c=>catRow(c,byCat[c])).join("")).join("");}
 function renderStats(){const us=units();const total=us.length;let msum=0,solved=0;us.forEach(u=>{msum+=u.mastery;if(DB.history[u.key]&&DB.history[u.key].attempts>0)solved++;});
   const mp=total?Math.round(msum/(total*5)*100):0,sp=total?Math.round(solved/total*100):0;
   const byYear=groupMetrics(q=>q.year),byCat=groupMetrics(q=>q.category);
@@ -1363,7 +1383,7 @@ function renderStats(){const us=units();const total=us.length;let msum=0,solved=
     <div class="eyebrow">年度別</div>
     ${yKeys.length?yKeys.map(y=>metricRow(y,byYear[y])).join(""):'<div class="hint">まだ年度タグ付きの問題がありません。</div>'}
     <div class="eyebrow">種別別</div>
-    ${cKeys.length?cKeys.map(c=>metricRow(c,byCat[c])).join(""):'<div class="hint">まだ種別タグ付きの問題がありません。</div>'}
+    ${catListHTML(byCat)}
     <div style="height:16px"></div></div>`;}
 
 /* calendar */
