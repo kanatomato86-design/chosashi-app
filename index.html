@@ -518,6 +518,16 @@ const CAT_GROUPS=[
   {group:"土地家屋調査士法",items:["調査士法"]}
 ];
 const ALL_CATS=CAT_GROUPS.flatMap(g=>g.items);
+/* 小分類（種別の下の細かい分類）。ここにない小分類も、問題の編集画面から自由に追加できます */
+const SUBCATS={
+  "総論":["不動産登記制度","申請義務","申請人適格","相続人その他の一般承継人","代位による登記","登記所の管轄","登記所における各情報の保存期間","実地調査","本人確認調査"]
+};
+function subcatsOf(c){const pre=SUBCATS[c]||[];const used=[...new Set(DB.questions.filter(q=>q.category===c&&q.subcat).map(q=>q.subcat))].filter(x=>!pre.includes(x));return pre.concat(used);}
+function subMatch(q,sub){return sub==="すべて"||(q.subcat||"")===(sub==="__none__"?"":sub);}
+function subChipsHTML(cat,cur,setter,rerender){if(cat==="すべて")return "";const list=subcatsOf(cat);if(!list.length)return "";
+  const has=new Set(DB.questions.filter(q=>q.category===cat).map(q=>q.subcat||""));
+  const chip=(v,l,dis)=>`<button class="chip sm ${cur===v?"on":""}" ${dis?"disabled":""} onclick="${setter}='${esc(v)}';${rerender}()">${esc(l)}</button>`;
+  return chip("すべて","すべて",false)+list.map(x=>chip(x,x,!has.has(x))).join("")+(has.has("")?chip("__none__","未設定",false):"");}
 function buildYears(){
   const y=[];
   for(let i=17;i<=31;i++)y.push("平成"+i+"年");            // 平成17年〜31年
@@ -919,12 +929,12 @@ const BUBBLE_ACT={hop:"うれしくて はねちゃった。",eat:"いっしょ�
   wash:"きれいに してから がんばろ。",sniff:"なにか いいこと ありそう。"};
 const app=document.getElementById("app");
 let state={view:"home"};
-let setupCfg={mode:"gosen",year:"すべて",cat:"すべて",startFrom:null,rate:null,mastery:new Set([0,1,2,3,4,5]),count:1,order:"random"};
+let setupCfg={mode:"gosen",year:"すべて",cat:"すべて",sub:"すべて",startFrom:null,rate:null,mastery:new Set([0,1,2,3,4,5]),count:1,order:"random"};
 let session=null,editModel=null;
 const SKEY="tkc_session_v1";
 function saveSession(){try{Store.set(SKEY,session?JSON.stringify({queue:session.queue,mode:session.mode,idx:session.idx,results:session.results,startTotal:session.startTotal,done:session.done}):"");}catch(e){}}
 async function loadSession(){try{const r=await Store.get(SKEY);if(!r)return;const o=JSON.parse(r);if(o&&Array.isArray(o.queue)){o.queue=o.queue.filter(k=>resolveKey(k));if(o.queue.length){if(o.idx>=o.queue.length)o.idx=o.queue.length-1;o.answered=false;o.chosen=null;session=o;}}}catch(e){}}
-let mg={search:"",year:"すべて",cat:"すべて",mastery:new Set([0,1,2,3,4,5])};
+let mg={search:"",year:"すべて",cat:"すべて",sub:"すべて",mastery:new Set([0,1,2,3,4,5])};
 function go(v,d){clearTimeout(__actTimer);state={view:v,...(d||{})};render();window.scrollTo(0,0);}
 function render(){const v=state.view;
   if(Cloud.enabled&&!Cloud.user)return renderLogin();
@@ -937,7 +947,8 @@ function render(){const v=state.view;
   if(v==="edit")return renderEdit();
   if(v==="stats")return renderStats();
   if(v==="cal")return renderCalendar();
-  if(v==="data")return renderData();}
+  if(v==="data")return renderData();
+  if(v==="substats")return renderSubStats();}
 
 function renderHome(){const s=stats();const total=sumAttempts();const si=stageIdx(total);const st=STAGES[si];const nx=STAGES[si+1];
   const prog=nx?Math.min(100,Math.round((total-st.min)/(nx.min-st.min)*100)):100;
@@ -995,7 +1006,7 @@ function renderHome(){const s=stats();const total=sumAttempts();const si=stageId
     ${rabbitBlock}
   </div>`;
   autoAct();}
-function startWeak(){setupCfg.year="すべて";setupCfg.cat="すべて";setupCfg.startFrom=null;setupCfg.rate=70;setupCfg.mastery=new Set([0,1,2,3,4,5]);setupCfg.count=10;setupCfg.order="random";go("setup",{weak:true});}
+function startWeak(){setupCfg.year="すべて";setupCfg.cat="すべて";setupCfg.sub="すべて";setupCfg.startFrom=null;setupCfg.rate=70;setupCfg.mastery=new Set([0,1,2,3,4,5]);setupCfg.count=10;setupCfg.order="random";go("setup",{weak:true});}
 
 /* setup */
 function poolQnums(){const seen=new Set(),out=[];matchPool().forEach(k=>{const it=resolveKey(k);if(it&&it.q.qnum&&!seen.has(it.q.qnum)){seen.add(it.q.qnum);out.push(it.q.qnum);}});return out;}
@@ -1012,8 +1023,9 @@ function renderSetup(){
       <button class="chip ${setupCfg.mode==="ox"?"on":""}" onclick="setupCfg.mode='ox';renderSetup()">○×（肢ごと）</button>
     </div>
     <div class="field-label">年度</div><div class="seg">${years.map(y=>{const st=(y!=="すべて"&&setupCfg.year!==y)?`background:${yearTint(y)};color:${yearColor(y)};border-color:transparent`:"";return `<button class="chip sm ${setupCfg.year===y?"on":""}" style="${st}" onclick="setupCfg.year='${esc(y)}';setupCfg.startFrom=null;renderSetup()">${esc(y)}</button>`;}).join("")}</div>
-    <div class="field-label">種別</div><div class="seg"><button class="chip sm ${setupCfg.cat==="すべて"?"on":""}" onclick="setupCfg.cat='すべて';setupCfg.startFrom=null;renderSetup()">すべて</button></div>
-    ${catGroupsWith(cats.filter(c=>c!=="すべて"&&!ALL_CATS.includes(c))).map(g=>`<div class="catgrp-l">${esc(g.group)}</div><div class="seg" style="margin-top:5px">${g.items.map(c=>`<button class="chip sm ${setupCfg.cat===c?"on":""}" ${cats.includes(c)?"":"disabled"} onclick="setupCfg.cat='${esc(c)}';setupCfg.startFrom=null;renderSetup()">${esc(c)}</button>`).join("")}</div>`).join("")}
+    <div class="field-label">種別</div><div class="seg"><button class="chip sm ${setupCfg.cat==="すべて"?"on":""}" onclick="setupCfg.cat='すべて';setupCfg.sub='すべて';setupCfg.startFrom=null;renderSetup()">すべて</button></div>
+    ${catGroupsWith(cats.filter(c=>c!=="すべて"&&!ALL_CATS.includes(c))).map(g=>`<div class="catgrp-l">${esc(g.group)}</div><div class="seg" style="margin-top:5px">${g.items.map(c=>`<button class="chip sm ${setupCfg.cat===c?"on":""}" ${cats.includes(c)?"":"disabled"} onclick="setupCfg.cat='${esc(c)}';setupCfg.sub='すべて';setupCfg.startFrom=null;renderSetup()">${esc(c)}</button>`).join("")}</div>`).join("")}
+    ${subChipsHTML(setupCfg.cat,setupCfg.sub,"setupCfg.sub","renderSetup")?`<div class="field-label">小分類（${esc(setupCfg.cat)}）</div><div class="seg">${subChipsHTML(setupCfg.cat,setupCfg.sub,"setupCfg.sub","renderSetup")}</div>`:""}
     <div class="field-label">開始位置（登録順で、この問から始めます）</div>
     <div class="seg"><button class="chip sm ${!setupCfg.startFrom?"on":""}" onclick="setupCfg.startFrom=null;renderSetup()">最初から</button>${qnums.map(q=>`<button class="chip sm ${setupCfg.startFrom===q?"on":""}" onclick="setupCfg.startFrom='${esc(q)}';renderSetup()">${esc(q)}</button>`).join("")}</div>
     <div class="field-label">正答率でしぼる</div>
@@ -1031,14 +1043,14 @@ function matchPool(){
   if(setupCfg.mode==="gosen"){
     let p=DB.questions.filter(gosenOK);
     if(setupCfg.year!=="すべて")p=p.filter(q=>q.year===setupCfg.year);
-    if(setupCfg.cat!=="すべて")p=p.filter(q=>q.category===setupCfg.cat);
+    if(setupCfg.cat!=="すべて")p=p.filter(q=>q.category===setupCfg.cat&&subMatch(q,setupCfg.sub));
     p=p.filter(q=>setupCfg.mastery.has(q.mastery||0));
     p=p.filter(q=>rateOK(q.id));
     return p.map(q=>q.id);
   }
   let u=units().filter(x=>x.q.type!=="choice"&&(x.b!==null||x.q.type==="ox"));
   if(setupCfg.year!=="すべて")u=u.filter(x=>x.q.year===setupCfg.year);
-  if(setupCfg.cat!=="すべて")u=u.filter(x=>x.q.category===setupCfg.cat);
+  if(setupCfg.cat!=="すべて")u=u.filter(x=>x.q.category===setupCfg.cat&&subMatch(x.q,setupCfg.sub));
   u=u.filter(x=>setupCfg.mastery.has(x.mastery));
   u=u.filter(x=>rateOK(x.key));
   return u.map(x=>x.key);}
@@ -1145,7 +1157,7 @@ function finishQuiz(){session.done=true;saveSession();go("result");}
 
 function wrongPreview(key){const it=resolveKey(key);if(!it)return "";const q=it.q;
   const body=it.b!==null&&q.type==="set"?q.branches[it.b].text:(q.type==="ox"?q.statement:(q.type==="set"?(q.stem||""):(q.question||"")));
-  return `<div class="qitem" onclick="go('edit',{id:'${q.id}',from:'result'})"><div class="top"><span class="cat">${esc(q.category||"未分類")}</span><span class="yr">${esc(itemLabel(it))} ${masteryBadge(itemMastery(it))}</span></div><div class="body">${esc(body)}</div></div>`;}
+  return `<div class="qitem" onclick="go('edit',{id:'${q.id}',from:'result'})"><div class="top"><span class="cat">${esc(q.category||"未分類")}${q.subcat?"・"+esc(q.subcat):""}</span><span class="yr">${esc(itemLabel(it))} ${masteryBadge(itemMastery(it))}</span></div><div class="body">${esc(body)}</div></div>`;}
 function renderResult(){const r=session.results,correct=r.filter(x=>x.ok).length,total=r.length,wrongKeys=r.filter(x=>!x.ok).map(x=>x.key);
   const after=sumAttempts(),before=session.startTotal||0,li=stageIdx(after),lb=stageIdx(before);
   const levelup=li>lb?`<div class="levelup"><div>${rabbitSVG(li,{size:48})}</div><div class="t">たくさん解いたね。<br>うさぎが育って <b>「${esc(STAGES[li].name)}」</b> になったよ。</div></div>`:"";
@@ -1171,7 +1183,7 @@ function qSearchText(q){let s=(q.year||"")+(q.qnum||"")+(q.category||"");
 function manageList(){let list=DB.questions.slice().reverse();
   if(mg.search.trim()){const k=mg.search.trim();list=list.filter(q=>qSearchText(q).includes(k));}
   if(mg.year!=="すべて")list=list.filter(q=>q.year===mg.year);
-  if(mg.cat!=="すべて")list=list.filter(q=>q.category===mg.cat);
+  if(mg.cat!=="すべて")list=list.filter(q=>q.category===mg.cat&&subMatch(q,mg.sub));
   list=list.filter(q=>{if(q.type==="set")return (q.branches||[]).some(b=>mg.mastery.has(b.mastery||0))||mg.mastery.has(q.mastery||0);return mg.mastery.has(q.mastery||0);});
   return list;}
 function renderManage(){const years=["すべて",...presentYears()],cats=["すべて",...presentCats()],ml=l=>l===0?"未評価":l;
@@ -1183,7 +1195,8 @@ function renderManage(){const years=["すべて",...presentYears()],cats=["す�
     <button class="btn primary" onclick="newQuestion()"><span>＋ 新しい問題を入力</span><span class="arw">→</span></button>
     <input type="text" placeholder="キーワード検索" value="${esc(mg.search)}" oninput="mg.search=this.value;refreshList()" style="margin-top:12px">
     <div class="rowlabel">年度</div><div class="seg">${years.map(y=>`<button class="chip sm ${mg.year===y?"on":""}" onclick="mg.year='${esc(y)}';renderManage()">${esc(y)}</button>`).join("")}</div>
-    <div class="rowlabel">種別</div><div class="seg">${cats.map(c=>`<button class="chip sm ${mg.cat===c?"on":""}" onclick="mg.cat='${esc(c)}';renderManage()">${esc(c)}</button>`).join("")}</div>
+    <div class="rowlabel">種別</div><div class="seg">${cats.map(c=>`<button class="chip sm ${mg.cat===c?"on":""}" onclick="mg.cat='${esc(c)}';mg.sub='すべて';renderManage()">${esc(c)}</button>`).join("")}</div>
+    ${subChipsHTML(mg.cat,mg.sub,"mg.sub","renderManage")?`<div class="rowlabel">小分類</div><div class="seg">${subChipsHTML(mg.cat,mg.sub,"mg.sub","renderManage")}</div>`:""}
     <div class="rowlabel">達成度</div><div class="seg">${[0,1,2,3,4,5].map(l=>`<button class="chip sm ${mg.mastery.has(l)?"on":""}" onclick="toggleMgM(${l})">${ml(l)}</button>`).join("")}</div>
     <div id="qlist" style="margin-top:8px">${renderQList(manageList())}</div>
   </div>`;}
@@ -1202,22 +1215,26 @@ function renderQList(list){if(!list.length)return `<div class="empty"><div class
     else if(q.type==="ox"){tag=q.answer?"○":"✕";body=q.statement;}
     else{tag="5択";body=q.question;}
     const yc=yearColor(q.year),yt=yearTint(q.year);
-    return `<div class="qitem" style="border-left-color:${yc}" onclick="go('edit',{id:'${q.id}',from:'manage'})"><div class="top"><span class="cat">${esc(q.category||"未分類")}</span><span class="yr"><span class="ybadge" style="background:${yt};color:${yc}">${esc(q.year||"—")}</span>${q.qnum?" "+esc(q.qnum):""}　${esc(tag)}　${qStatHTML(q)}</span></div><div class="body">${esc(body)}</div><div class="qi-act"><button class="solvebtn" onclick="solveOne('${q.id}',event)">▶ この問題を解く</button></div></div>`;}).join("");}
+    return `<div class="qitem" style="border-left-color:${yc}" onclick="go('edit',{id:'${q.id}',from:'manage'})"><div class="top"><span class="cat">${esc(q.category||"未分類")}${q.subcat?"・"+esc(q.subcat):""}</span><span class="yr"><span class="ybadge" style="background:${yt};color:${yc}">${esc(q.year||"—")}</span>${q.qnum?" "+esc(q.qnum):""}　${esc(tag)}　${qStatHTML(q)}</span></div><div class="body">${esc(body)}</div><div class="qi-act"><button class="solvebtn" onclick="solveOne('${q.id}',event)">▶ この問題を解く</button></div></div>`;}).join("");}
 
 /* edit(set) */
 function newQuestion(){const st=(editModel&&editModel.labelStyle)||"kana";
-  editModel={id:null,type:"set",year:"",category:"物権",qnum:"",stem:"",labelStyle:st,
+  editModel={id:null,type:"set",year:"",category:"物権",subcat:"",qnum:"",stem:"",labelStyle:st,
   branches:Array.from({length:5},(_,i)=>({label:labelAt(st,i),text:"",truth:null,expl:"",mastery:0})),
   combosText:"",comboCorrect:null,mastery:0};go("edit",{from:"manage"});}
 function loadEditModel(id){const q=DB.questions.find(x=>x.id===id);
-  if(q.type==="set"){editModel={id:q.id,type:"set",year:q.year||"",category:q.category||"",qnum:q.qnum||"",stem:q.stem||"",labelStyle:detectStyle(q),
+  if(q.type==="set"){editModel={id:q.id,type:"set",year:q.year||"",category:q.category||"",subcat:q.subcat||"",qnum:q.qnum||"",stem:q.stem||"",labelStyle:detectStyle(q),
     branches:(q.branches||[]).map(b=>({label:b.label,text:b.text||"",truth:b.truth,expl:b.expl||"",mastery:b.mastery||0})),
     combosText:(q.combos||[]).join("、"),comboCorrect:Number.isInteger(q.comboCorrect)?q.comboCorrect:null,mastery:q.mastery||0};}
-  else if(q.type==="ox"){editModel={id:q.id,type:"set",year:q.year||"",category:q.category||"",qnum:q.qnum||"",stem:q.stem||"",labelStyle:"kana",
+  else if(q.type==="ox"){editModel={id:q.id,type:"set",year:q.year||"",category:q.category||"",subcat:q.subcat||"",qnum:q.qnum||"",stem:q.stem||"",labelStyle:"kana",
     branches:[{label:q.sub||"ア",text:q.statement||"",truth:(typeof q.answer==="boolean"?q.answer:null),expl:q.explanation||"",mastery:q.mastery||0}],
     combosText:"",comboCorrect:null,mastery:q.mastery||0,convertFrom:"ox"};}
-  else{editModel={id:q.id,type:"choice",year:q.year||"",category:q.category||"",qnum:q.qnum||"",question:q.question||"",
+  else{editModel={id:q.id,type:"choice",year:q.year||"",category:q.category||"",subcat:q.subcat||"",qnum:q.qnum||"",question:q.question||"",
     choices:(q.choices||[]).map((c,i)=>({text:c,correct:i===q.correct})),explanation:q.explanation||"",mastery:q.mastery||0};}}
+function subBoxHTML(cat,sel){const list=subcatsOf(cat);const custom=sel&&!list.includes(sel);
+  return `<select id="f_sub" onchange="onSubSel(this)"><option value="" ${sel?"":"selected"}>（なし）</option>${list.map(x=>`<option ${x===sel?"selected":""}>${esc(x)}</option>`).join("")}<option value="__new__" ${custom?"selected":""}>＋ 新しい小分類</option></select><input type="text" id="f_subnew" placeholder="新しい小分類名" value="${custom?esc(sel):""}" style="display:${custom?"block":"none"}" oninput="editModel.subcat=this.value">`;}
+function onSubSel(el){const nf=document.getElementById("f_subnew");if(el.value==="__new__"){nf.style.display="block";editModel.subcat="";nf.value="";nf.focus();}else{nf.style.display="none";editModel.subcat=el.value;}}
+function refreshSubBox(){const el=document.getElementById("subbox");if(el&&editModel)el.innerHTML=subBoxHTML(editModel.category,editModel.subcat||"");}
 function catSelectHTML(sel){const custom=sel&&!ALL_CATS.includes(sel);return CAT_GROUPS.map(g=>`<optgroup label="${g.group}">`+g.items.map(c=>`<option ${c===sel?"selected":""}>${c}</option>`).join("")+`</optgroup>`).join("")+`<option value="__new__" ${custom?"selected":""}>＋ 新しい種別</option>`;}
 function yearSelectHTML(sel){const list=yearOptions();const custom=sel&&!list.includes(sel);
   return `<option value="" ${sel?"":"selected"}>（未設定）</option>`+list.map(y=>`<option ${y===sel?"selected":""}>${y}</option>`).join("")+`<option value="__new__" ${custom?"selected":""}>＋ 年度を自由入力</option>`;}
@@ -1251,6 +1268,7 @@ function renderEdit(){if(state.id&&(!editModel||editModel.id!==state.id))loadEdi
     </div>
     <div class="field-label">種別</div><select id="f_cat">${catSelectHTML(m.category)}</select>
     <input type="text" id="f_catnew" placeholder="新しい種別名" value="${catCustom?esc(m.category):""}" style="display:${catCustom?"block":"none"}" oninput="editModel.category=this.value">
+    <div class="field-label">小分類</div><div id="subbox">${subBoxHTML(m.category,m.subcat||"")}</div>
     <div class="field-label">問い（柱書・共通の設定。任意）</div>
     <textarea rows="3" placeholder="例）A、B及びCが甲建物を共有している場合に関する次の記述について…" oninput="editModel.stem=this.value">${esc(m.stem)}</textarea>
     <div class="field-label">肢の記号</div>
@@ -1275,7 +1293,7 @@ function renderEdit(){if(state.id&&(!editModel||editModel.id!==state.id))loadEdi
       <button class="btn small" onclick="saveSet(false)">保存して一覧へ戻る</button>
       ${m.id?`<button class="btn danger small" onclick="deleteQuestion()">この問題を削除</button>`:""}
     </div><div style="height:10px"></div></div>`;
-  const cs=document.getElementById("f_cat");if(cs)cs.onchange=()=>{const nf=document.getElementById("f_catnew");if(cs.value==="__new__"){nf.style.display="block";editModel.category="";nf.focus();}else{nf.style.display="none";editModel.category=cs.value;}};
+  const cs=document.getElementById("f_cat");if(cs)cs.onchange=()=>{const nf=document.getElementById("f_catnew");if(cs.value==="__new__"){nf.style.display="block";editModel.category="";nf.focus();}else{nf.style.display="none";editModel.category=cs.value;}editModel.subcat="";refreshSubBox();};
   const ys=document.getElementById("f_year");if(ys)ys.onchange=()=>{const nf=document.getElementById("f_yearnew");if(ys.value==="__new__"){nf.style.display="block";editModel.year="";nf.focus();}else{nf.style.display="none";editModel.year=ys.value;}};}
 function ed_truth(i,t){editModel.branches[i].truth=t;renderEdit();}
 function ed_style(s){editModel.labelStyle=s;relabel(editModel.branches,s);renderEdit();}
@@ -1289,14 +1307,14 @@ function saveSet(next){const m=editModel;
   if(!branches.length&&!m.stem.trim()){toast("問いか肢を入力してください");return;}
   const combos=m.combosText.split(/[、,\s/・]+/).map(s=>s.trim()).filter(Boolean);
   let cc=m.comboCorrect;if(!(Number.isInteger(cc)&&combos.length>=2&&cc<combos.length))cc=null;
-  const obj={type:"set",year:(m.year||"").trim(),category:m.category.trim(),qnum:(m.qnum||"").trim(),stem:m.stem.trim(),branches,combos,comboCorrect:cc,mastery:m.mastery||0};
+  const obj={type:"set",year:(m.year||"").trim(),category:m.category.trim(),subcat:(m.subcat||"").trim(),qnum:(m.qnum||"").trim(),stem:m.stem.trim(),branches,combos,comboCorrect:cc,mastery:m.mastery||0};
   if(m.id){const old=DB.questions.find(x=>x.id===m.id);
     if(m.convertFrom==="ox"){delete old.statement;delete old.answer;delete old.sub;delete old.explanation;}
     Object.assign(old,obj);old.type="set";old.updatedAt=Date.now();cloudSaveQuestion(old);}
   else{obj.id=uid();obj.createdAt=Date.now();obj.updatedAt=Date.now();DB.questions.push(obj);cloudSaveQuestion(obj);}
   saveDB();
   if(next){const nq=incQnum(m.qnum),st=m.labelStyle,cnt=Math.max(1,m.branches.length);
-    editModel={id:null,type:"set",year:m.year,category:m.category,qnum:nq,stem:"",labelStyle:st,
+    editModel={id:null,type:"set",year:m.year,category:m.category,subcat:m.subcat||"",qnum:nq,stem:"",labelStyle:st,
       branches:Array.from({length:cnt},(_,i)=>({label:labelAt(st,i),text:"",truth:null,expl:"",mastery:0})),combosText:"",comboCorrect:null,mastery:0};
     toast("保存しました"+(nq?" → 次は "+nq:""));state={view:"edit",from:"manage"};renderEdit();window.scrollTo(0,0);
   }else{editModel=null;toast("保存しました");go(state.from==="result"?"result":"manage");}}
@@ -1312,6 +1330,7 @@ function renderEditChoice(){const m=editModel;const catCustom=m.category&&!ALL_C
     </div>
     <div class="field-label">種別</div><select id="f_cat">${catSelectHTML(m.category)}</select>
     <input type="text" id="f_catnew" value="${catCustom?esc(m.category):""}" style="display:${catCustom?"block":"none"}" oninput="editModel.category=this.value">
+    <div class="field-label">小分類</div><div id="subbox">${subBoxHTML(m.category,m.subcat||"")}</div>
     <div class="field-label">問題文</div><textarea oninput="editModel.question=this.value">${esc(m.question)}</textarea>
     <div class="field-label">選択肢（○＝正解）</div>
     ${m.choices.map((c,i)=>`<div class="choice-edit" style="display:flex;gap:9px;align-items:center;margin-top:8px"><input type="radio" name="cc" style="width:22px;height:22px;accent-color:var(--brand)" ${c.correct?"checked":""} onchange="editModel.choices.forEach((x,j)=>x.correct=(j===${i}))"><input type="text" value="${esc(c.text)}" oninput="editModel.choices[${i}].text=this.value"></div>`).join("")}
@@ -1320,13 +1339,13 @@ function renderEditChoice(){const m=editModel;const catCustom=m.category&&!ALL_C
       <button class="btn primary" onclick="saveChoice()"><span>保存する</span><span class="arw">✓</span></button>
       <button class="btn danger small" onclick="deleteQuestion()">この問題を削除</button>
     </div></div>`;
-  const cs=document.getElementById("f_cat");if(cs)cs.onchange=()=>{const nf=document.getElementById("f_catnew");if(cs.value==="__new__"){nf.style.display="block";editModel.category="";nf.focus();}else{nf.style.display="none";editModel.category=cs.value;}};
+  const cs=document.getElementById("f_cat");if(cs)cs.onchange=()=>{const nf=document.getElementById("f_catnew");if(cs.value==="__new__"){nf.style.display="block";editModel.category="";nf.focus();}else{nf.style.display="none";editModel.category=cs.value;}editModel.subcat="";refreshSubBox();};
   const ys=document.getElementById("f_year");if(ys)ys.onchange=()=>{const nf=document.getElementById("f_yearnew");if(ys.value==="__new__"){nf.style.display="block";editModel.year="";nf.focus();}else{nf.style.display="none";editModel.year=ys.value;}};}
 function saveChoice(){const m=editModel;const choices=m.choices.map(c=>c.text.trim()).filter(Boolean);
   if(!m.question.trim()||choices.length<2){toast("問題文と選択肢2つ以上が必要です");return;}
   let ci=m.choices.filter(c=>c.text.trim()!=="").findIndex(c=>c.correct);if(ci<0)ci=0;
   const qq=DB.questions.find(x=>x.id===m.id);
-  Object.assign(qq,{year:m.year.trim(),category:m.category.trim(),qnum:(m.qnum||"").trim(),question:m.question.trim(),choices,correct:ci,explanation:(m.explanation||"").trim(),updatedAt:Date.now()});
+  Object.assign(qq,{year:m.year.trim(),category:m.category.trim(),subcat:(m.subcat||"").trim(),qnum:(m.qnum||"").trim(),question:m.question.trim(),choices,correct:ci,explanation:(m.explanation||"").trim(),updatedAt:Date.now()});
   cloudSaveQuestion(qq);
   saveDB();editModel=null;toast("保存しました");go("manage");}
 function deleteQuestion(){const id=editModel&&editModel.id;if(!id){toast("まだ保存されていません");return;}
@@ -1362,9 +1381,20 @@ function weekChartHTML(){const W="日月火水木金土",wd=weekData(statsWeek),
     <div class="ch-diff">${diff>0?"↑":diff<0?"↓":"→"} 前週比 ${diff>0?"+":""}${diff}回</div></div>`;}
 function masteryChartHTML(us){const n=[0,0,0,0,0,0];us.forEach(u=>{n[u.mastery]=(n[u.mastery]||0)+1;});
   return `<div class="chartcard"><div class="ch-title">達成度ごとの肢の数</div>${barChart(n.map((v,i)=>({label:i===0?"未":String(i),v,tip:`${i===0?"未評価":"達成度"+i} ${v}肢`})))}</div>`;}
-function startCat(c){setupCfg.year="すべて";setupCfg.cat=c;setupCfg.startFrom=null;setupCfg.rate=null;setupCfg.mastery=new Set([0,1,2,3,4,5]);go("setup");}
-function catRow(c,g){g=g||{count:0,msum:0,solved:0};const mp=g.count?Math.round(g.msum/(g.count*5)*100):0;
-  return `<button class="catrow" ${g.count?`onclick="startCat('${esc(c)}')"`:"disabled"}><div class="cr-main"><div class="cr-name">${esc(c)}</div><div class="cr-track"><span style="width:${mp}%"></span></div><div class="cr-sub">達成度 ${mp}%・演習済み ${g.solved}/${g.count}肢</div></div><span class="cr-n">${g.count}</span><span class="cr-arw">›</span></button>`;}
+function startCat(c,sub){setupCfg.year="すべて";setupCfg.cat=c;setupCfg.sub=sub||"すべて";setupCfg.startFrom=null;setupCfg.rate=null;setupCfg.mastery=new Set([0,1,2,3,4,5]);go("setup");}
+function catRow(c,g){return rowHTML(c,g,subcatsOf(c).length?`go('substats',{cat:'${esc(c)}'})`:`startCat('${esc(c)}')`);}
+function rowHTML(label,g,action){g=g||{count:0,msum:0,solved:0};const mp=g.count?Math.round(g.msum/(g.count*5)*100):0;
+  return `<button class="catrow" ${g.count?`onclick="${action}"`:"disabled"}><div class="cr-main"><div class="cr-name">${esc(label)}</div><div class="cr-track"><span style="width:${mp}%"></span></div><div class="cr-sub">達成度 ${mp}%・演習済み ${g.solved}/${g.count}肢</div></div><span class="cr-n">${g.count}</span><span class="cr-arw">›</span></button>`;}
+function renderSubStats(){const c=state.cat;const m={},all={count:0,msum:0,solved:0};
+  units().filter(u=>u.q.category===c).forEach(u=>{const k=u.q.subcat||"__none__";const g=m[k]||(m[k]={count:0,msum:0,solved:0});const done=DB.history[u.key]&&DB.history[u.key].attempts>0;[g,all].forEach(x=>{x.count++;x.msum+=u.mastery;if(done)x.solved++;});});
+  app.innerHTML=`<div class="view theme-stats">
+    <button class="backlink" onclick="go('stats')">← 成績・達成度</button>
+    <div class="catgroup-h" style="font-size:17px;margin-top:16px">${esc(c)}</div>
+    ${rowHTML(c+"（すべて）",all,`startCat('${esc(c)}')`)}
+    <div class="eyebrow" style="margin-top:22px">小分類</div>
+    ${subcatsOf(c).map(x=>rowHTML(x,m[x],`startCat('${esc(c)}','${esc(x)}')`)).join("")}
+    ${m.__none__?rowHTML("未設定",m.__none__,`startCat('${esc(c)}','__none__')`):""}
+    <div style="height:16px"></div></div>`;}
 function catGroupsWith(extra){return CAT_GROUPS.concat(extra.length?[{group:"その他",items:extra}]:[]);}
 function catListHTML(byCat){return catGroupsWith(Object.keys(byCat).filter(k=>!ALL_CATS.includes(k))).map(g=>`<div class="catgroup-h">${esc(g.group)}</div>`+g.items.map(c=>catRow(c,byCat[c])).join("")).join("");}
 function renderStats(){const us=units();const total=us.length;let msum=0,solved=0;us.forEach(u=>{msum+=u.mastery;if(DB.history[u.key]&&DB.history[u.key].attempts>0)solved++;});
@@ -1448,12 +1478,12 @@ function doImport(mode){const txt=document.getElementById("imp").value.trim();if
       if(!branches.length&&!q.stem)continue;
       const combos=Array.isArray(q.combos)?q.combos.map(String):[];
       const cc=(Number.isInteger(q.comboCorrect)&&q.comboCorrect<combos.length)?q.comboCorrect:null;
-      cleaned.push({id:uid(),type:"set",year:q.year||"",category:q.category||"未分類",qnum:q.qnum||"",stem:q.stem?String(q.stem):"",branches,combos,comboCorrect:cc,mastery:Number.isInteger(q.mastery)?Math.max(0,Math.min(q.mastery,5)):0});
+      cleaned.push({id:uid(),type:"set",year:q.year||"",category:q.category||"未分類",subcat:q.subcat?String(q.subcat):"",qnum:q.qnum||"",stem:q.stem?String(q.stem):"",branches,combos,comboCorrect:cc,mastery:Number.isInteger(q.mastery)?Math.max(0,Math.min(q.mastery,5)):0});
     }else if(q.type==="choice"||(Array.isArray(q.choices)&&q.question)){
       if(!q.question||!Array.isArray(q.choices)||q.choices.length<2)continue;
-      cleaned.push({id:uid(),type:"choice",year:q.year||"",category:q.category||"未分類",qnum:q.qnum||"",question:String(q.question),choices:q.choices.map(String),correct:Number.isInteger(q.correct)?Math.max(0,Math.min(q.correct,q.choices.length-1)):0,explanation:q.explanation||"",mastery:Number.isInteger(q.mastery)?Math.max(0,Math.min(q.mastery,5)):0});
+      cleaned.push({id:uid(),type:"choice",year:q.year||"",category:q.category||"未分類",subcat:q.subcat?String(q.subcat):"",qnum:q.qnum||"",question:String(q.question),choices:q.choices.map(String),correct:Number.isInteger(q.correct)?Math.max(0,Math.min(q.correct,q.choices.length-1)):0,explanation:q.explanation||"",mastery:Number.isInteger(q.mastery)?Math.max(0,Math.min(q.mastery,5)):0});
     }else if(q.statement){
-      cleaned.push({id:uid(),type:"ox",year:q.year||"",category:q.category||"未分類",qnum:q.qnum||"",sub:q.sub||"",stem:q.stem||"",statement:String(q.statement),answer:!!q.answer,explanation:q.explanation||"",mastery:Number.isInteger(q.mastery)?Math.max(0,Math.min(q.mastery,5)):0});}}
+      cleaned.push({id:uid(),type:"ox",year:q.year||"",category:q.category||"未分類",subcat:q.subcat?String(q.subcat):"",qnum:q.qnum||"",sub:q.sub||"",stem:q.stem||"",statement:String(q.statement),answer:!!q.answer,explanation:q.explanation||"",mastery:Number.isInteger(q.mastery)?Math.max(0,Math.min(q.mastery,5)):0});}}
   if(!cleaned.length){toast("読み込める問題がありません");return;}
   const apply=()=>{const base=Date.now();cleaned.forEach((q,i)=>{q.createdAt=base+i;q.updatedAt=base+i;});
     if(mode==="replace"){DB.questions=cleaned;DB.history={};session=null;}else{DB.questions=DB.questions.concat(cleaned);}
